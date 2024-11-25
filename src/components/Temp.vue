@@ -1,15 +1,17 @@
 <script setup lang="ts">
 
+
 </script>
 
 <template>
-  <header>
 
-  </header>
+<a>Temp</a>
 
-  <RouterView />
 </template>
 
 <style scoped>
+
+
+
 
 </style>
