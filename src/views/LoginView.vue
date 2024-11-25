@@ -1,20 +1,16 @@
- <script setup lang="ts">
-
+<script setup lang="ts">
 
 
 </script>
 
-
 <template>
 
-<a>Temp</a>
+<a>LoginView</a>
 
 </template>
 
-
-
-
 <style scoped>
+
 
 
 
