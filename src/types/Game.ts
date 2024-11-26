@@ -1,4 +1,4 @@
-import type { Developer } from "./developer";
+import type { Developer } from "./Developer";
 
 export interface Game{
     id: string,

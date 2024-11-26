@@ -1,6 +1,6 @@
-import type { Developer } from "./developer";
-import type { Game } from "./game";
-import type { User } from "./user";
+import type { Developer } from "./Developer";
+import type { Game } from "./Game";
+import type { User } from "./User";
 
 export interface APIRequest{
     error: boolean,

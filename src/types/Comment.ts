@@ -1,5 +1,5 @@
-import type { Game } from "./game";
-import type { User } from "./user";
+import type { Game } from "./Game";
+import type { User } from "./User";
 
 export interface Comment{
     id: string,
