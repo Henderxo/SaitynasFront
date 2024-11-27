@@ -2,8 +2,10 @@
 import { onMounted } from 'vue';
 import { useCollections } from '@/composables/getData';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
+import { prepareImageSrc } from '@/utils/imageUtils';
+import type { Developer } from '@/types/Developer';
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
-const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection} = useCollections()
+const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection, totalCount: totalGames} = useCollections()
 const props = defineProps({
     id: {type: String}
 })
@@ -17,9 +19,24 @@ onMounted(async () => {
 
 <template>
 
-<div class="block items-center justify-center mx-auto max-w-6xl">
-    <div>
-        <div v-if="!developerIsLoading">{{ developerData.name }}</div>
+<div class="block items-center justify-center mx-auto max-w-6xl mt-5">
+    <div v-if="!developerIsLoading" class="flex">
+        <img class="bigImgDisplay" :src="prepareImageSrc((developerData as Developer).photo)">
+        <div class="ml-5 flex flex-col">
+            <div class="text-4xl">
+                <a>{{ developerData.name }}</a>
+            </div>
+            <a class="mt-3">Founder: {{ developerData.founder }}</a>
+            <a class="mt-2">Headquarters: {{ (developerData as Developer).headquarters }}</a>
+            <a class="mt-2">Games created: {{ totalGames }}</a>
+            <a class="mt-2">Founded: {{ ((developerData as Developer).founded as string).slice(0, 10) }}</a>
+            <div class="mt-2" style="white-space: pre-wrap;">
+                <a class="">Description: {{ developerData.description }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="text-2xl mt-4 mb-4">
+        <a>Developer's games: </a>
     </div>
     <GamesGridDisplay v-if="!gamesAreLoading" :games="developerGamesData"></GamesGridDisplay>
 </div>

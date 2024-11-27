@@ -8,6 +8,7 @@ import type { Game } from '@/types/Game'
 export function useCollections(){
     const isLoading = ref<boolean>(true)
     const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]>([])
+    const totalCount = ref<Number>(0)
 
     async function getCollection({collectionName, expand = null, id}: GetAllDataOptions){
 
@@ -21,6 +22,9 @@ export function useCollections(){
         }
         console.log(res.data)
         dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]
+        if(Array.isArray(dataList.value)){
+            totalCount.value = (dataList.value as Object[]).length
+        }
         isLoading.value = false
     }
 
@@ -29,7 +33,7 @@ export function useCollections(){
         isLoading.value = true
     }
     
-    return {resetData, getCollection, isLoading: readonly(isLoading), data: readonly(dataList)}
+    return {resetData, getCollection, isLoading: readonly(isLoading), data: readonly(dataList), totalCount: readonly(totalCount)}
 }
 
 function formUrl(collectionName: String, expand: String|null, id?: String): String{
