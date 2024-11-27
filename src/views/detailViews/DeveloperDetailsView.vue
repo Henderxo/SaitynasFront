@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import { useCollections } from '@/composables/getData';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
 import { prepareImageSrc } from '@/utils/imageUtils';
+import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
 import type { Developer } from '@/types/Developer';
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
 const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection, totalCount: totalGames} = useCollections()
@@ -38,7 +39,8 @@ onMounted(async () => {
     <div class="text-2xl mt-4 mb-4">
         <a>Developer's games: </a>
     </div>
-    <GamesGridDisplay v-if="!gamesAreLoading" :games="developerGamesData"></GamesGridDisplay>
+    <GamesGridDisplay v-if="!gamesAreLoading && totalGames != 0" :games="developerGamesData"></GamesGridDisplay>
+    <NoDataFoundDisplay class="mt-10" v-else-if="!gamesAreLoading &&totalGames == 0"></NoDataFoundDisplay>
 </div>
 
 </template>

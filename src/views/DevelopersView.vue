@@ -4,7 +4,7 @@ import { useCollections } from '@/composables/getData';
 import DevelopersGridDisplay from '@/components/displays/DevelopersGridDisplay.vue';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
 
-const {data, isLoading, getCollection} = useCollections()
+const {data, isLoading, getCollection, totalCount} = useCollections()
 
 onMounted(async () => {
     getCollection({collectionName: 'developers', expand: 'userId'})
@@ -19,7 +19,8 @@ onMounted(async () => {
             <a class="text-4xl">Developers</a>
         </div>
         <div class="">
-            <DevelopersGridDisplay v-if="!isLoading" :developers="data"></DevelopersGridDisplay>
+            <DevelopersGridDisplay v-if="!isLoading && totalCount != 0" :developers="data"></DevelopersGridDisplay>
+            <NoDataFoundDisplay v-else-if="!isLoading && totalCount == 0"></NoDataFoundDisplay>
         </div>
     </div>
     

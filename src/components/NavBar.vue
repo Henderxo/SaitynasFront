@@ -5,7 +5,7 @@
 
 <template>
 
-<div class="topnav bg-gradient-to-r from-orange-500 to-yellow-500">
+<div class="topnav bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
 
     <div class="font-bold">
         <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Home</RouterLink>

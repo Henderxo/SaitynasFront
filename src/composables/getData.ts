@@ -7,7 +7,7 @@ import type { Game } from '@/types/Game'
 
 export function useCollections(){
     const isLoading = ref<boolean>(true)
-    const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]>([])
+    const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]|Game>([])
     const totalCount = ref<Number>(0)
 
     async function getCollection({collectionName, expand = null, id}: GetAllDataOptions){
@@ -21,7 +21,7 @@ export function useCollections(){
             return
         }
         console.log(res.data)
-        dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]
+        dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]|Game
         if(Array.isArray(dataList.value)){
             totalCount.value = (dataList.value as Object[]).length
         }

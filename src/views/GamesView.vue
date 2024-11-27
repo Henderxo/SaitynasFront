@@ -2,8 +2,8 @@
 import { onMounted } from 'vue';
 import { useCollections } from '@/composables/getData';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
-
-const {data, isLoading, getCollection} = useCollections()
+import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
+const {data, isLoading, getCollection, totalCount} = useCollections()
 
 onMounted(async () => {
     getCollection({collectionName: 'games', expand: 'developerId'})
@@ -18,7 +18,8 @@ onMounted(async () => {
             <a class="text-4xl">Games</a>
         </div>
         <div class="">
-            <GamesGridDisplay v-if="!isLoading" :games="data"></GamesGridDisplay>
+            <GamesGridDisplay v-if="!isLoading && totalCount != 1" :games="data"></GamesGridDisplay>
+            <NoDataFoundDisplay v-else-if="!isLoading && totalCount == 0"></NoDataFoundDisplay>
         </div>
     </div>
     
