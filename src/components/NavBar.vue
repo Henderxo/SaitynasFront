@@ -5,14 +5,14 @@
 
 <template>
 
-<div class="topnav">
+<div class="topnav bg-gradient-to-r from-orange-500 to-yellow-500">
 
-    <div>
+    <div class="font-bold">
         <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Home</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'games'}">Games</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'users'}">Users</RouterLink>
     </div>
-    <div class="float-end">
+    <div class="float-end font-bold">
         <RouterLink class="float-end flex justify-center items-center" :to="{name: 'login'}">Login</RouterLink>
     </div>
     <div class="icon flex justify-center items-center w-48 float-end">
@@ -31,7 +31,6 @@
     background-color: blanchedalmond;
 }
 .topnav {
-  background-color:rgb(238, 152, 40);
   overflow: hidden;
   min-width: 1400px;
 }

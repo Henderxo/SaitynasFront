@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-<div class="data-block overflow-auto grid grid-cols-4 gap-10 justify-items-center">
+<div class="data-block overflow-auto grid grid-cols-8 gap-5 justify-items-center">
         <div v-for="developer in developers" :key="(developer.id as string)">
             <GridElement :developer="developer"></GridElement>
         </div>

@@ -16,7 +16,7 @@ const props = defineProps({
             <div class="">Type</div>
         </div>
         <div class="data-block overflow-auto">
-            <div class="" v-for="user in users" :key="(user.id as string)">
+            <div class="" v-for="user in users" :key="(user._id as string)">
                 <UserTableElement :user="user"></UserTableElement>
             </div>
         </div>

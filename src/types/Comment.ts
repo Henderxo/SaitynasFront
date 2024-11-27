@@ -2,7 +2,7 @@ import type { Game } from "./Game";
 import type { User } from "./User";
 
 export interface Comment{
-    id: string,
+    _id: string,
     title: string,
     body: string,
     gameId: string | Game,

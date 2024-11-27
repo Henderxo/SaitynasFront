@@ -12,9 +12,9 @@ onMounted(async () => {
 
 <template>
 
-<div class="flex flex-col items-center justify-center mt-10">
+<div class="block items-center justify-center mx-auto max-w-6xl">
     <div>
-        <div class="flex items-center mt-2 mb-2">
+        <div class="flex items-center mt-2 mb-5">
             <a class="text-4xl">Games</a>
         </div>
         <div class="">

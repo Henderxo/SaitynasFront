@@ -7,11 +7,11 @@ import type { Game } from '@/types/Game'
 
 export function useCollections(){
     const isLoading = ref<boolean>(true)
-    const dataList = ref<User[]|Developer|Game[]|Comment[]>([])
+    const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]>([])
 
     async function getCollection({collectionName, expand = null, id}: GetAllDataOptions){
 
-        const url = formUrl(collectionName,expand)
+        const url = formUrl(collectionName,expand,id)
         isLoading.value = true
         const res = await getData(url as string)
         if(res.error === true){
@@ -20,7 +20,7 @@ export function useCollections(){
             return
         }
         console.log(res.data)
-        dataList.value = res.data as User[]|Developer|Game[]|Comment[]
+        dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]
         isLoading.value = false
     }
 

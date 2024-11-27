@@ -5,15 +5,15 @@
 
 
 .data-block{
-    width: 1400px;
-    max-width: 1400px;
-    min-width: 1400px;
-    max-height: 500px;
+    width: 1600px;
+    max-width: 1600px;
+    min-width: 1600px;
+    max-height: 1000px;
 }
 .block{
-    width: 1400px;
-    max-width: 1400px;
-    min-width: 1400px;
+    width: 1600px;
+    max-width: 1600px;
+    min-width: 1600px;
     height: 800px;
     padding-top: 15px;
 }
@@ -45,4 +45,9 @@
 }
 .iconPointer{
     cursor: pointer;
+}
+.imgDisplay{
+    width: 175px;
+    height: 200px;
+    background-color: orange;
 }

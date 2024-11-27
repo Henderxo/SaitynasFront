@@ -5,11 +5,13 @@ import GameGridElement from '../elements/GameGridElement.vue';
 const props = defineProps({
     games: {type: Object as PropType<Game[]>, required: true}
 })
+
+
 </script>
 
 <template>
-<div class="data-block overflow-auto grid grid-cols-4 gap-10 justify-items-center">
-        <div v-for="game in games" :key="(game.id as string)">
+<div class="data-block overflow-auto grid grid-cols-8 gap-5 justify-items-center">
+        <div v-for="game in games" :key="(game._id as string)">
             <GameGridElement :game="game"></GameGridElement>
         </div>
     </div>
