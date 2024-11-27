@@ -10,7 +10,7 @@ const router = useRouter()
 </script>
 
 <template>
-    <div style=" padding: 2px; width: 175px; height: 250px; overflow: hidden;  text-overflow: ellipsis;" class="">
+    <div style=" padding: 2px; width: 175px; height: 250px; overflow: hidden;  text-overflow: ellipsis;" class="shadow-xl">
         <div @click="router.push({name: 'developerDetails', params: {id: developer._id}})" class="container relative iconPointer">
             <img class="imgDisplay" :src="prepareImageSrc(developer.photo)">
             <div class="middle ">

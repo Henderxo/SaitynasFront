@@ -9,11 +9,11 @@ const props = defineProps({
 
 <template>
 <div class=" border-l border-r border-b-1 shadow-xl">
-        <div  style="padding: 5px; max-width: 1400px;" class="max-w-full border-b grid grid-cols-4 gap-4 justify-items-center font-bold" >
-            <div class="">Username</div>
-            <div class="">Email</div>
-            <div class="">Created</div>
-            <div class="">Type</div>
+        <div  style="padding: 5px; max-width: 1600px;" class="rat bg-orange-600 max-w-full border-b border-t grid grid-cols-4 justify-items-center font-bold" >
+            <div class=""><a>Username</a></div>
+            <div class=""><a>Email</a></div>
+            <div class=""><a>Created</a></div>
+            <div class=""><a>Type</a></div>
         </div>
         <div class="data-block overflow-auto">
             <div class="" v-for="user in users" :key="(user._id as string)">
@@ -24,5 +24,6 @@ const props = defineProps({
 </template>
 
 <style scoped>
+
 
 </style>

@@ -15,7 +15,7 @@ onMounted(async () => {
 <div class="flex flex-col items-center justify-center mt-10">
     <div>
         <div class="flex items-center mt-2 mb-2">
-            <a class="text-4xl">Users</a>
+            <a class="text-white text-4xl">Users</a>
         </div>
         <div class="">
             <UserTableDisplay v-if="!isLoading" :users="data"></UserTableDisplay>
@@ -27,8 +27,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-
-
 
 
 </style>

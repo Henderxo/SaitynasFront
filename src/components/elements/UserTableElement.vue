@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-<div style="padding-top: 5px; padding-bottom: 5px; max-width: 1400px; max-height: 100px"  class=" text flex text-center border-b grid grid-cols-4 gap-4 " >
+<div style="padding-top: 5px; padding-bottom: 5px; max-width: 1600px; max-height: 100px"  class=" text flex text-center border-b grid grid-cols-4 gap-4 " >
     <div class="pl-2 pr-2 line-clamp-4"><a>{{ user.username }}</a></div>
     <div class="pl-2 pr-2 line-clamp-4"><a>{{ user.email }}</a></div>
     <div class="pl-2 pr-2 line-clamp-4"><a>{{ user.created_at }}</a></div>

@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { useCollections } from '@/composables/getData';
 const {data: gameData, isLoading: gameIsLoading, getCollection: getGameCollection} = useCollections()
-const {data, isLoading, getCollection} = useCollections()
+const {data: gameCommentsData, isLoading: commentsAreLoading, getCollection: getGameCommentsCollection} = useCollections()
 const props = defineProps({
     id: {type: String}
 })

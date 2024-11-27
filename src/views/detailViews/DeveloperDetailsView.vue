@@ -3,14 +3,14 @@ import { onMounted } from 'vue';
 import { useCollections } from '@/composables/getData';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
-const {data, isLoading, getCollection} = useCollections()
+const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection} = useCollections()
 const props = defineProps({
     id: {type: String}
 })
 
 onMounted(async () => {
     getDeveloperCollection({collectionName: 'developers', expand: 'userId', id: props.id})
-    getCollection({collectionName: 'developers', id: `${props.id}/games`})
+    getDeveloperGamesCollection({collectionName: 'developers', id: `${props.id}/games`})
 })
 
 </script>
@@ -21,7 +21,7 @@ onMounted(async () => {
     <div>
         <div v-if="!developerIsLoading">{{ developerData.name }}</div>
     </div>
-    <GamesGridDisplay v-if="!isLoading" :games="data"></GamesGridDisplay>
+    <GamesGridDisplay v-if="!gamesAreLoading" :games="developerGamesData"></GamesGridDisplay>
 </div>
 
 </template>
