@@ -5,6 +5,9 @@ import UsersView from '@/views/UsersView.vue'
 import LoginView from '@/views/LoginView.vue'
 import DeveloperDetailsView from '@/views/detailViews/DeveloperDetailsView.vue'
 import GameDetailsView from '@/views/detailViews/GameDetailsView.vue'
+import RegisterView from '@/views/RegisterView.vue'
+import { useAuthStore } from '@/stores/AuthStore'
+import PageNotFound from '@/views/PageNotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,9 +44,7 @@ const router = createRouter({
           props: true
       }
     
-    ],
-      
-    },
+    ],},
     {
       path: '/users',
       name: 'users',
@@ -53,8 +54,61 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: {
+        hideNavbar: true
+      },
+      beforeEnter: (to, from) =>{
+        if(useAuthStore().isUserLoggedIn()){
+          return from
+        }
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+      meta: {
+        hideNavbar: true
+      },
+      beforeEnter: (to, from) =>{
+        if(useAuthStore().isUserLoggedIn()){
+          return from
+        }
+      }
+    },
+    {
+      path: '/:pathMatch(.*)',
+      name: 'pathNotFound',
+      component: PageNotFound
     }
+
   ],
+})
+router.beforeEach((to, from) => {
+  if(useAuthStore().isUserLoggedIn()){
+    if(useAuthStore().currentUser?.type === 'admin'){
+      return true
+    }
+    else if(to.path !== '/users'){
+        return true
+    }
+    return {name: 'pathNotFound'}
+  } 
+  if (
+    to.path === '/login' || 
+    to.path === '/' || 
+    to.path === '/register' ||
+    to.name === '/' || 
+    to.path.startsWith('/developers/') ||
+    to.path.startsWith('/games/') ||
+    to.name === 'pathNotFound'
+  ) {
+    return true; 
+  }
+  if (to.path === '/users') {
+    return { path: '/login' }
+  }
+  return {name: 'pathNotFound'}
 })
 
 export default router

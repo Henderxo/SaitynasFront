@@ -3,13 +3,11 @@ import Input from '@/components/Input.vue';
 import { Form } from 'vee-validate';
 import { loginShema } from '@/validation/validationShemas';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/AuthStore';
 
 const router = useRouter()
 
 function onSubmit(values: any): void{
-    useAuthStore().logUserIn(values.email, values.password)
-    console.log(useAuthStore().currentUser)
+    console.log(values.password)
 }
 </script>
 
@@ -19,20 +17,23 @@ function onSubmit(values: any): void{
         <div class="flex flex-col justify-items-center" style="width: 400px;">
             <Form @submit="onSubmit" :validation-schema="loginShema">
                 <div class="flex justify-center">   
-                    <a class="text-4xl">Login</a>
+                    <a class="text-4xl">Register</a>    
                 </div>
                 <div class="mt-2">
-                    <Input :place-holder="'Enter email...'" :left-icon="'https://www.iconpacks.net/icons/1/free-mail-icon-142-thumb.png'" :name="'email'" :label="'Email'"></Input>
+                    <Input :type="'username'" :place-holder="'Enter new username...'" :left-icon="'https://cdn-icons-png.flaticon.com/512/2815/2815428.png'" :name="'username'" :label="'Username'"></Input>
                 </div>
                 <div class="mt-2">
-                    <Input :type="'password'" :place-holder="'Enter password...'" :left-icon="'https://cdn-icons-png.flaticon.com/512/61/61457.png'" :right-icon="'https://cdn-icons-png.flaticon.com/512/65/65000.png'" :name="'password'" :label="'Password'"></Input>
+                    <Input :place-holder="'Enter new email...'" :left-icon="'https://www.iconpacks.net/icons/1/free-mail-icon-142-thumb.png'" :name="'email'" :label="'Email'"></Input>
+                </div>
+                <div class="mt-2">
+                    <Input :type="'password'" :place-holder="'Enter new password...'" :left-icon="'https://cdn-icons-png.flaticon.com/512/61/61457.png'" :right-icon="'https://cdn-icons-png.flaticon.com/512/65/65000.png'" :name="'password'" :label="'Password'"></Input>
                 </div>
                 <div class="w-full flex justify-center" style="height: 80px;">
                     <button class="w-full rounded-xl mt-10" style="background-color: orange;" type="submit">Login</button>
                 </div> 
             </Form>
             <div class="flex justify-center mt-5">
-                <a>Dont have, an account? Create one here! <button style="color: orange" @click="router.push({name: 'register'})">Sign up.</button></a>
+                <a>Already have an account? <button style="color: orange" @click="router.push({name: 'login'})">Sign in.</button></a>
             </div>
         </div>
     </div>

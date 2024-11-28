@@ -52,4 +52,17 @@ async function updateData(dateName: string, data: object):Promise<APIRequest>{
     }
 }
 
-export {getData, postData, deleteData, resetInstance, updateData}
+async function getUserAuthData(email: String, passw: String): Promise<APIRequest> {
+
+    const res = (await instance.post('/login', {email: email, password: passw} ) as CustomAxiosReponse)
+    instance.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+    return {
+        error: res.error,
+        message: res.message,
+        code: res.status,
+        data: res.data.user??res.data,
+        token: res.data.token,
+    }
+}
+
+export {getData, postData, getUserAuthData, deleteData, resetInstance, updateData}

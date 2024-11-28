@@ -1,24 +1,26 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/AuthStore';
+import { prepareImageSrc } from '@/utils/imageUtils';
 
 
 </script>
 
 <template>
 
-<div class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
+<div v-if="!$route.meta.hideNavbar" class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
 
     <div class="font-bold">
         <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Home</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'games'}">Games</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'users'}">Users</RouterLink>
     </div>
-    <div class="float-end font-bold">
+    <div v-if="!useAuthStore().isUserLoggedIn()" class="float-end font-bold">
         <RouterLink class="float-end flex justify-center items-center" :to="{name: 'login'}">Login</RouterLink>
     </div>
-    <div class="icon flex justify-center items-center w-48 float-end">
-        <img class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
+    <div @click="useAuthStore().logUserOut()" v-else class="icon flex justify-center items-center w-36 float-end">
+        <img v-if="!useAuthStore().currentUser?.photo"class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
+        <img v-else class="profileIcon w-12 rounded-full" :src="prepareImageSrc((useAuthStore().currentUser?.photo as string))">
     </div>
-
 </div>
 
 </template>
