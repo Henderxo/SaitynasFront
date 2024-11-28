@@ -14,7 +14,6 @@
     width: 1600px;
     max-width: 1600px;
     min-width: 1600px;
-    height: 800px;
     padding-top: 15px;
 }
 .button{
@@ -55,4 +54,7 @@
     width: 200px;
     height: 250px;
     background-color: orange;
+}
+.purple{
+    background-color: rgb(54, 47, 80);
 }

@@ -13,6 +13,7 @@ export function useCollections(){
     async function getCollection({collectionName, expand = null, id}: GetAllDataOptions){
 
         const url = formUrl(collectionName,expand,id)
+        console.log(url)
         isLoading.value = true
         const res = await getData(url as string)
         if(res.error === true){

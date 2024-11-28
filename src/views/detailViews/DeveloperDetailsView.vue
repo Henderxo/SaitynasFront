@@ -39,15 +39,15 @@ onMounted(async () => {
     <div class="text-2xl mt-4 mb-4">
         <a>Developer's games: </a>
     </div>
+
     <GamesGridDisplay v-if="!gamesAreLoading && totalGames != 0" :games="developerGamesData"></GamesGridDisplay>
     <NoDataFoundDisplay class="mt-10" v-else-if="!gamesAreLoading &&totalGames == 0"></NoDataFoundDisplay>
+
 </div>
 
 </template>
 
 <style scoped>
-
-
 
 
 </style>

@@ -5,7 +5,7 @@
 
 <template>
 
-<div class="topnav bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
+<div class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
 
     <div class="font-bold">
         <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Home</RouterLink>
@@ -31,8 +31,10 @@
     background-color: blanchedalmond;
 }
 .topnav {
+  width: 100%;
   overflow: hidden;
   min-width: 1400px;
+
 }
 .topnav a {
   float: left;
