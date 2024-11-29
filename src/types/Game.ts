@@ -9,5 +9,6 @@ export interface Game{
     language: string,
     playerType: string,
     developerId: string | Developer,
-    photo: string | null
+    photo: string | null,
+    description: string | null
 }

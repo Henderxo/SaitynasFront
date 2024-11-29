@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useCollections } from '@/composables/getData';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
 import { prepareImageSrc } from '@/utils/imageUtils';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
 import type { Developer } from '@/types/Developer';
 import { useAuthStore } from '@/stores/AuthStore';
+import { useModalStore } from '@/stores/ModalStore';
+import EditDeveloper from '@/components/modals/EditDeveloper.vue';
+import DeleteDeveloper from '@/components/modals/DeleteDeveloper.vue';
 const AuthStore = useAuthStore()
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
 const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection, totalCount: totalGames} = useCollections()
@@ -16,8 +19,13 @@ const props = defineProps({
 onMounted(async () => {
     getDeveloperCollection({collectionName: 'developers', expand: 'userId', id: props.id})
     getDeveloperGamesCollection({collectionName: 'developers', id: `${props.id}/games`})
+    
 })
 
+watch(useModalStore().isTrigger, ()=>{
+    getDeveloperCollection({collectionName: 'developers', expand: 'userId', id: props.id})
+    getDeveloperGamesCollection({collectionName: 'developers', id: `${props.id}/games`})    
+})
 </script>
 
 <template>
@@ -27,7 +35,7 @@ onMounted(async () => {
         <img class="bigImgDisplay" :src="prepareImageSrc((developerData as Developer).photo)">
         <div class="ml-5 flex flex-col">
             <div class="text-4xl">
-                <a>{{ developerData.name }}</a>
+                <a>{{ developerData.name }} </a>
             </div>
             <a class="mt-3">Founder: {{ developerData.founder }}</a>
             <a class="mt-2">Headquarters: {{ (developerData as Developer).headquarters }}</a>
@@ -40,8 +48,8 @@ onMounted(async () => {
     </div>
     <div v-if="!developerIsLoading && (AuthStore.isAdmin() || (AuthStore.isDev() && (developerData as Developer).userId._id === AuthStore.currentUser?._id))" class="flex  mt-5">
         <button class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">New Game</button>
-        <button class="button float-right mr-4 ml-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
-        <button class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
+        <button @click="useModalStore().SetModal({component: EditDeveloper, componentProps: {id: developerData._id}})" class="button float-right mr-4 ml-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
+        <button @click="useModalStore().SetModal({component: DeleteDeveloper, componentProps: {id: developerData._id}})" class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
     </div>
     <div class="text-2xl mt-4 mb-4">
         <a>Developer's games: </a>

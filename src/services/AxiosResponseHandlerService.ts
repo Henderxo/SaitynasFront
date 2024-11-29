@@ -32,19 +32,19 @@ function httpErrorHandler(error: any){
         const statusCode = response?.status??500;
         switch (statusCode) {
             case 400:
-                return formResponse('',statusCode, true, response);
+                return formResponse(response?.data.error,statusCode, true, response);
             case 401:
-                return formResponse('', statusCode, true, response);
+                return formResponse(response?.data.error, statusCode, true, response);
             case 403:
-                return formResponse('.', statusCode, true, response);
+                return formResponse(response?.data.error, statusCode, true, response);
             case 404:
-                return formResponse('', statusCode, true, response);
+                return formResponse(response?.data.error, statusCode, true, response);
             case 500:
-                return formResponse('', statusCode, true, response);
+                return formResponse('Server unavailable', statusCode, true, response);
             case 503:
-                return formResponse('', statusCode, true, response);
+                return formResponse(response?.data.error, statusCode, true, response);
             default:
-                return formResponse(``, statusCode, true, response);
+                return formResponse(response?.data.error, statusCode, true, response);
         }
     }
     return formResponse('', -200, true)
@@ -55,7 +55,6 @@ export function responseErrorHandler(response: AxiosResponse<any>) {
  }
 
 export function responseHandler(response: AxiosResponse<any>) {
-
     if(response.status == 200){
 
         const data = response?.data

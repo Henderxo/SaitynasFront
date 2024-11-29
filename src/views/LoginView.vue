@@ -9,7 +9,6 @@ const router = useRouter()
 
 function onSubmit(values: any): void{
     useAuthStore().logUserIn(values.email, values.password)
-    console.log(useAuthStore().currentUser)
 }
 </script>
 

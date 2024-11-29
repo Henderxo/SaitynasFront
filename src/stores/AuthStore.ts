@@ -3,22 +3,22 @@ import { readonly, ref } from "vue";
 import { type User } from "@/types/User";
 import { registerNewLogin, removeToken, isTokenValid } from "@/services/AuthService";
 import { useRouter } from "vue-router";
+import { useNotificationStore } from "./NotificationStore";
 
 export const useAuthStore = defineStore('auth', ()=>{
     const currentUser = ref<User|null>(JSON.parse(localStorage.getItem('currentUser')))
     const authToken = ref<String|null>(localStorage.getItem('token'))
-
+    const Notifications = useNotificationStore()
     const router = useRouter()
 
     async function logUserIn(email: String, password: String): Promise<void>{
         const res = await registerNewLogin(email, password)
         authToken.value = typeof res.token !== 'undefined' && isTokenValid(res.token) ? res.token : null
         if(res.error || !isUserLoggedIn()){
- 
+            Notifications.errorNotification(`Error: ${res.message}`)
             return
         }
         currentUser.value = res.data as User
-        console.log(currentUser.value)
         router.push({name: 'home'})
     }
 

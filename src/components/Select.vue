@@ -2,14 +2,15 @@
 import { toRef, ref, onMounted, computed,watch } from 'vue';
 import { useField, type InputType } from 'vee-validate';
 import { useCollections } from '@/composables/getData';
-
+import { type PropType } from 'vue';
 const props = defineProps({
     name: {type: String, required: true},
-    value: {type: String, default: undefined},
+    value: {type: [String, Boolean] as PropType<string | boolean>, default: undefined},
     label: {type: String, required: true},
     placeHolder: {type: String, default: ''},
-    collectionName: {type: String, required: true},
-    showing: {type: String, required: true}
+    collectionName: {type: String, required: false},
+    showing: {type: String, required: true},
+    defaultValues: {type: Object as PropType<String[]|boolean[]>, required: false}
 })
 const emit = defineEmits(['update:modelValue'])
 const {data, isLoading, getCollection} = useCollections()
@@ -27,7 +28,7 @@ function handleChange(event: Event) {
 }
 
 onMounted(async ()=>{
-    getCollection({collectionName: props.collectionName})
+    props.collectionName?getCollection({collectionName: props.collectionName}):null
 })
 </script>
 
@@ -37,7 +38,7 @@ onMounted(async ()=>{
     :class="{ 'has-error': !!errorMessage, success: meta.valid }">
     <label  :for="name">{{ label }}</label>
     <div type="select" class="textField  items-center rounded-sm">
-    <select style="width: 100%;" class="h-auto p-2 shadow-[rgba(0,0,15,0.5)_0px_3px_3px_1px]"
+    <select style="width: 100%;" class="h-auto h-12 p-3 shadow-[rgba(0,0,15,0.5)_0px_3px_3px_1px]"
       :value="selectedValue"
       :name="name"
       :id="name"
@@ -45,8 +46,11 @@ onMounted(async ()=>{
       @change="handleChange"
     > 
         <option value="" >{{ placeHolder }}</option>
-        <option v-if="!isLoading" :value="item._id" v-for="item in data" :key="(item._id as PropertyKey)">
+        <option v-if="!isLoading && collectionName" :value="item._id" v-for="item in data" :key="(item._id as PropertyKey)">
             {{ item[showing]}}
+        </option>
+        <option v-if="!collectionName" :value="item" v-for="item in defaultValues" :key="(item as PropertyKey)">
+            {{ item }}
         </option>
     </select>
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, useAttrs } from 'vue';
+import { onMounted, useAttrs, watch } from 'vue';
 import { useCollections } from '@/composables/getData';
 import DevelopersGridDisplay from '@/components/displays/DevelopersGridDisplay.vue';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
@@ -11,8 +11,12 @@ const {data, isLoading, getCollection, totalCount} = useCollections()
 
 onMounted(async () => {
     getCollection({collectionName: 'developers', expand: 'userId'})
+    
 })
 
+watch(useModalStore().isTrigger, ()=>{
+    getCollection({collectionName: 'developers', expand: 'userId'})
+})
 
 </script>
 

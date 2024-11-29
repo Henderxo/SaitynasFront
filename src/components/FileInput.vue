@@ -3,7 +3,7 @@ import { toRef, ref } from 'vue';
 import { useField } from 'vee-validate';
 const props = defineProps({
     name: {type: String, required: true},
-    label: {type: String, required: true},
+    label: {type: String, default: ''},
     accept: {type: String, required: true},
     placeholder: {type: String, required: true}
 })

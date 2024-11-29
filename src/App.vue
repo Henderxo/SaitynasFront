@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import NavBar from './components/NavBar.vue';
 import Modal from './components/Modal.vue';
+import NotificationDisplay from './components/displays/NotificationDisplay.vue';
 </script>
 
 <template>
@@ -9,10 +10,13 @@ import Modal from './components/Modal.vue';
     <NavBar></NavBar>
     <Modal></Modal>
   </header>
-  <div class="pt-20">
+  <div class="pt-20 pb-10">
+    <NotificationDisplay></NotificationDisplay>
     <RouterView />
   </div>
+  
   </main>
+  
 </template>
 
 <style>

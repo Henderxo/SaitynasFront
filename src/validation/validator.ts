@@ -36,6 +36,13 @@ defineRule('minLength4', (value: string) => {
     return true;
   });
   
+  defineRule('minLength10', (value: string) => {
+    if (value.length <= 10) {
+      return 'Field must be longer than 10 characters';
+    }
+    return true;
+  });
+
   defineRule('maxLength15', (value: string) => {
     if (value.length >= 15) {
       return 'Field must be shorter than 15 characters';
