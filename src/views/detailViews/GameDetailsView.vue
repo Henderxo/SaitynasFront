@@ -23,6 +23,14 @@ onMounted(async () => {
         getDeveloperGamesCollectio({collectionName: 'developers', id: `${gameData.value.developerId._id}/games`})
     }, {once: true})
 })
+
+watch(useModalStore().isTrigger, ()=>{
+    getGameCollection({collectionName: 'games', expand: 'developerId', id: props.id})
+    getGameCommentsCollection({collectionName: 'games', expand: 'userId', id: `${props.id}/comments`})
+    watch(gameData, ()=>{
+        getDeveloperGamesCollectio({collectionName: 'developers', id: `${gameData.value.developerId._id}/games`})
+    }, {once: true})
+})
 const smallDeveloperGame = computed(() => 
     Array.isArray(developerGames.value) ? developerGames.value.slice(0, 5) : []
 );

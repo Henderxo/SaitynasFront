@@ -44,7 +44,7 @@ function onSubmit(values: any){
                 <div class="w-full ml-2">
                     <Input class="mt-2" :value="(data as Game).language " :place-holder="'Enter language...'"  :name="'language'" :label="'Language'"></Input>
                     <Select class="mt-2" :value="(data as Game).platform " :name="'platform'" :default-values="Object.values(gamePlatforms)" :place-holder="'Select platform...'" :label="'Platform'" :showing="'genre'" ></Select>
-                    <Select class="mt-2" :value="(data as Game).controllerSupport" :name="'controllerSupport'" :default-values="Object.values(controllerSupport)" :place-holder="'Select support...'" :label="'Controller support'" :showing="'support'" ></Select>
+                    <Select class="mt-2" :value="(data as Game).controllerSupport.toString()" :name="'controllerSupport'" :default-values="Object.values(controllerSupport)" :place-holder="'Select support...'" :label="'Controller support'" :showing="'support'" ></Select>
                 </div>
             </div>
             <Select v-if="!isLoading" class="mt-2" :value="(data as Game).playerType" :name="'playerType'" :default-values="Object.values(playerTypes)" :place-holder="'Select player type...'" :label="'Player type'" :showing="'playerType'" ></Select>
