@@ -5,6 +5,10 @@ import { prepareImageSrc } from '@/utils/imageUtils';
 import type { Game } from '@/types/Game';
 import CommentDisplay from '@/components/displays/CommentDisplay.vue';
 import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
+import { useAuthStore } from '@/stores/AuthStore';
+import { useModalStore } from '@/stores/ModalStore';
+import EditGame from '@/components/modals/EditGame.vue';
+const AuthStore = useAuthStore()
 const {data: gameData, isLoading: gameIsLoading, getCollection: getGameCollection} = useCollections()
 const {data: gameCommentsData, isLoading: commentsAreLoading, getCollection: getGameCommentsCollection} = useCollections()
 const {data: developerGames, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollectio} = useCollections()
@@ -29,7 +33,7 @@ const smallDeveloperGame = computed(() =>
 <div class="block mx-auto flex mt-5">
     <div class="flex gameInfo flex-col">
         <div v-if="!gameIsLoading" class="flex">
-            <img class="bigImgDisplay" :src="prepareImageSrc((gameData as Game).photo)">
+            <img  class="bigImgDisplay" :src="prepareImageSrc((gameData as Game).photo)">
             <div class="ml-5 flex flex-col break-all">
                 <div class="text-4xl">
                     <a>{{ gameData.title }}</a>
@@ -45,6 +49,10 @@ const smallDeveloperGame = computed(() =>
                 </div>
             </div>
         </div>
+        <div v-if="!gameIsLoading && (AuthStore.isAdmin() || (AuthStore.isDev() && (gameData as Game).developerId.userId === AuthStore.currentUser?._id))" class="flex mt-5">
+            <button class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
+            <button class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
+        </div>
         <div  v-if="!commentsAreLoading" class="mb-20">
             <div  class="text-2xl mt-4 mb-2">
                 <a>Comments: </a>
@@ -53,12 +61,12 @@ const smallDeveloperGame = computed(() =>
         </div>
     </div>
     <div class="gameCol p-6 ml-6  float-right w-12 h-12">
-        <div  class="break-word mb-4 text flex flex-col">
+        <div  class="break-all   mb-4 text flex flex-col">
             <a v-if="!gameIsLoading" class="text-2xl">{{(gameData as Game).developerId.name}}</a>
             <a>Other Games</a>
         </div>
         <div class="text flex justify-center">
-            <GamesGridDisplay v-if="!gamesAreLoading" :games="smallDeveloperGame" :class="'felx justify-items-center commentField  pt-6 gameCol'"></GamesGridDisplay>
+            <GamesGridDisplay v-if="!gamesAreLoading" :games="smallDeveloperGame" :class="'justify-items-center commentField  pt-6 gameCol'"></GamesGridDisplay>
         </div>
         
     </div>
@@ -67,6 +75,7 @@ const smallDeveloperGame = computed(() =>
 </template>
 
 <style scoped>
+
 .gameCol{
     width: 250px;
 }

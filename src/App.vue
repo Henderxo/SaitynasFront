@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import NavBar from './components/NavBar.vue';
-
+import Modal from './components/Modal.vue';
 </script>
 
 <template>
   <main>
     <header>
     <NavBar></NavBar>
+    <Modal></Modal>
   </header>
   <div class="pt-20">
     <RouterView />

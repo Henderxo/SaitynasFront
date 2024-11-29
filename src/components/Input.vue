@@ -31,7 +31,7 @@ function toggleVisibility(): void{
     :class="{ 'has-error': !!errorMessage, success: meta.valid }"
 >
     <label  :for="name">{{ label }}</label>
-    <div type="input" class="textField flex items-center rounded-sm p-3">
+    <div type="input" class="textField flex items-center rounded-sm p-3 shadow-[rgba(0,0,15,0.5)_0px_3px_3px_1px]">
         <img class="icon ml-1 mr-2" v-if="leftIcon" :src="leftIcon" >
         <input
       :name="name"

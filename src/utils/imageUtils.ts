@@ -1,6 +1,6 @@
 export function prepareImageSrc(base64Data: string|null): string {
     if (!base64Data) {
-      return ''
+      return 'https://cdn2.iconfinder.com/data/icons/symbol-gray-set-3a/100/1-17-512.png'
     }
   
     const mimeType = getMimeType(base64Data)

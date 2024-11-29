@@ -5,6 +5,8 @@ import GamesGridDisplay from '@/components/displays/GamesGridDisplay.vue';
 import { prepareImageSrc } from '@/utils/imageUtils';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
 import type { Developer } from '@/types/Developer';
+import { useAuthStore } from '@/stores/AuthStore';
+const AuthStore = useAuthStore()
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
 const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection, totalCount: totalGames} = useCollections()
 const props = defineProps({
@@ -35,6 +37,11 @@ onMounted(async () => {
                 <a class="">Description: {{ developerData.description }}</a>
             </div>
         </div>
+    </div>
+    <div v-if="!developerIsLoading && (AuthStore.isAdmin() || (AuthStore.isDev() && (developerData as Developer).userId._id === AuthStore.currentUser?._id))" class="flex  mt-5">
+        <button class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">New Game</button>
+        <button class="button float-right mr-4 ml-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
+        <button class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
     </div>
     <div class="text-2xl mt-4 mb-4">
         <a>Developer's games: </a>

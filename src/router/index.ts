@@ -8,6 +8,7 @@ import GameDetailsView from '@/views/detailViews/GameDetailsView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { useAuthStore } from '@/stores/AuthStore'
 import PageNotFound from '@/views/PageNotFound.vue'
+import DevView from '@/views/DevView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +39,7 @@ const router = createRouter({
           component: GamesView,
       },
       {
-          path: 'game/:id',
+          path: 'games/:id',
           name: 'gameDetails',
           component: GameDetailsView,
           props: true
@@ -80,7 +81,12 @@ const router = createRouter({
       path: '/:pathMatch(.*)',
       name: 'pathNotFound',
       component: PageNotFound
-    }
+    },
+    {
+      path: '/dev',
+      name: 'dev',
+      component: DevView
+    },
 
   ],
 })
@@ -89,8 +95,12 @@ router.beforeEach((to, from) => {
     if(useAuthStore().currentUser?.type === 'admin'){
       return true
     }
-    else if(to.path !== '/users'){
-        return true
+    if(to.path === '/dev' && useAuthStore().isDev())
+    {
+      return true
+    }
+    if(to.path !== '/users'){
+      return true
     }
     return {name: 'pathNotFound'}
   } 
@@ -98,14 +108,14 @@ router.beforeEach((to, from) => {
     to.path === '/login' || 
     to.path === '/' || 
     to.path === '/register' ||
-    to.name === '/' || 
+    to.path === '/games' || 
     to.path.startsWith('/developers/') ||
     to.path.startsWith('/games/') ||
     to.name === 'pathNotFound'
   ) {
     return true; 
   }
-  if (to.path === '/users') {
+  if (to.path === '/users' || to.path === '/dev') {
     return { path: '/login' }
   }
   return {name: 'pathNotFound'}

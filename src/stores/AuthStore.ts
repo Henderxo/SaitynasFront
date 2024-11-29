@@ -22,6 +22,20 @@ export const useAuthStore = defineStore('auth', ()=>{
         router.push({name: 'home'})
     }
 
+    function isAdmin(): boolean{
+        if(isUserLoggedIn() && currentUser.value?.type === 'admin'){
+            return true
+        }
+        return false
+    }
+
+    function isDev(): boolean{
+        if(isUserLoggedIn() && currentUser.value?.type === 'dev'){
+            return true
+        }
+        return false
+    }
+
     function isUserLoggedIn(): boolean{
         if(!isTokenValid(authToken.value)){
             if(authToken.value !== null || currentUser.value !== null){
@@ -41,5 +55,5 @@ export const useAuthStore = defineStore('auth', ()=>{
         }
     }
 
-    return {logUserIn, isUserLoggedIn, logUserOut, currentUser: readonly(currentUser)}
+    return {logUserIn, isUserLoggedIn, logUserOut, currentUser: readonly(currentUser), isAdmin, isDev}
 })

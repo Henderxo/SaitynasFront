@@ -16,15 +16,12 @@
     min-width: 1600px;
     padding-top: 15px;
 }
-.button{
-    border: solid;
-    border-color: #0054A6;
-    background-color: #0054A6;
-    color:white;
+.button {
+    @apply bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg z-10 shadow-orange-500/50 rounded-xl px-4 h-12 text-xl;
 }
-.button:hover{
-    background-color: white;
-    color:#0054A6;
+  
+.button:hover {
+    @apply from-orange-400 to-yellow-400 shadow-lg shadow-orange-500/70;
 }
 .truncate {   
     white-space: nowrap;  
@@ -33,14 +30,10 @@
     max-width: 700px;
 }
 .delete:hover{
-    background-color: white;
-    color:#A61A11;
+    @apply from-red-400 to-orange-400 shadow-lg shadow-red-500/70;
 }
 .delete{
-    border: solid;
-    border-color: #A61A11;
-    background-color: #A61A11;
-    color:white;
+    @apply bg-gradient-to-r from-red-500 to-orange-500 shadow-lg z-10 shadow-red-500/50 rounded-xl px-4 h-12 text-xl;
 }
 .iconPointer{
     cursor: pointer;

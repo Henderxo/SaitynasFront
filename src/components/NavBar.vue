@@ -7,13 +7,13 @@ import { prepareImageSrc } from '@/utils/imageUtils';
 
 <template>
 
-<div v-if="!$route.meta.hideNavbar" class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg shadow-orange-500/50">
-
+<div v-if="!$route.meta.hideNavbar" class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg z-10 shadow-orange-500/50">
     <div class="font-bold">
-        <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Home</RouterLink>
+        <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Developers</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'games'}">Games</RouterLink>
-        <RouterLink class="flex justify-center items-center" :to="{name: 'users'}">Users</RouterLink>
-    </div>
+        <RouterLink v-if="useAuthStore().isAdmin()" class="flex justify-center items-center" :to="{name: 'users'}">Users</RouterLink>
+        <RouterLink v-if="useAuthStore().isDev() || useAuthStore().isAdmin()" class="flex justify-center items-center" :to="{name: 'dev'}">Your Developers</RouterLink>
+      </div>
     <div v-if="!useAuthStore().isUserLoggedIn()" class="float-end font-bold">
         <RouterLink class="float-end flex justify-center items-center" :to="{name: 'login'}">Login</RouterLink>
     </div>
@@ -45,7 +45,7 @@ import { prepareImageSrc } from '@/utils/imageUtils';
   text-decoration: none;
   font-size: 17px;
   height: 75px;
-  width: 125px;
+  width: 200px;
 }
 .topnav a:hover {
   background-color: #ecc08d;
