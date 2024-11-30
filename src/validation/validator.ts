@@ -22,6 +22,27 @@ defineRule('end', (value: string)=>{
     return true
 })
 
+defineRule('photoValidation', (value: any) => {
+  if (!value) {
+    return 'A photo is required.'; // Checks if no file is selected
+  }
+
+  const MAX_SIZE_MB = 10;
+  const file = value; // Since it's one file, we don't need to access an array element
+
+  if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+    return `The photo size must be less than ${MAX_SIZE_MB} MB.`; // Checks file size
+  }
+
+  // Optionally: Check file type (e.g., for images)
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  if (!allowedTypes.includes(file.type)) {
+    return 'Only JPEG, PNG, or GIF images are allowed.';
+  }
+
+  return true; // Passes validation
+});
+
 defineRule('start', (value: string)=>{
     if(endsWithSpecialSymbol(value)){
         return `Field can't start with a special symbol or a space`

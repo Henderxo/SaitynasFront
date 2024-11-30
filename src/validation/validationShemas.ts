@@ -9,7 +9,7 @@ export const createDeveloper = {
     founder: 'required|start|end|minLength4|maxLength25',
     headquarters: 'required|start|end|minLength4|maxLength25',
     date: 'required',
-    photo: 'required',
+    photo: 'photoValidation',
     description: 'required|minLength10'
 }
 
@@ -21,8 +21,42 @@ export const createGame = {
     genre: 'required',
     developer: 'required',
     playerType: 'required',
-    photo: 'required',
+    photo: 'photoValidation',
     description: 'required|minLength10'
+}
+
+export const createUser = {
+    username: 'required|start|end|minLength4|maxLength25',
+    email: 'email',
+    password: 'password',
+    userType: 'required',
+    photo: 'photoValidation',
+}
+
+export const createUserSimple = {
+    username: 'required|start|end|minLength4|maxLength25',
+    email: 'email',
+    password: 'password',
+    photo: 'photoValidation',
+}
+
+export const editUser = {
+    username: 'required|start|end|minLength4|maxLength25',
+    email: 'email',
+    password: '',
+    userType: 'required',
+    photo: '',
+}
+
+
+export const createComment = {
+    commentTitle: 'required|start|end|minLength4|maxLength25',
+    commentBody: 'required|minLength10'
+}
+
+export const editComment = {
+    commentTitle: 'required|start|end|minLength4|maxLength25',
+    commentBody: 'required|minLength10'
 }
 
 export const editGame = {

@@ -47,7 +47,6 @@ async function deleteData(dateName: string):Promise<APIRequest>{
 }
 
 async function updateData(dateName: string, data: object):Promise<APIRequest>{
-    console.log(data)
     const res = (await instance.put((dateName as string), data) as CustomAxiosReponse)
     return {
         error: res.error,
@@ -61,7 +60,6 @@ async function getUserAuthData(email: String, passw: String): Promise<APIRequest
     const res = (await instance.post('/login', {email: email, password: passw}, {headers: {
         'Content-Type': 'application/json'
       },}) as CustomAxiosReponse)
-    console.log(res)
     instance.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
     return {
         error: res.error,

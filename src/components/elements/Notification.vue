@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useNotificationStore } from '@/stores/NotificationStore';
 import { type Notification } from '@/types/Notification';
 import { type PropType } from 'vue';
 const props = defineProps({

@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth', ()=>{
     function isUserLoggedIn(): boolean{
         if(!isTokenValid(authToken.value)){
             if(authToken.value !== null || currentUser.value !== null){
-                logUserOut(true)
+                logUserOut()
             }
             return false
         }

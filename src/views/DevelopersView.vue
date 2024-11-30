@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, useAttrs, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useCollections } from '@/composables/getData';
 import DevelopersGridDisplay from '@/components/displays/DevelopersGridDisplay.vue';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
@@ -29,7 +29,7 @@ watch(useModalStore().isTrigger, ()=>{
         </div>
         <div class="">
             <DevelopersGridDisplay v-if="!isLoading && totalCount != 0" :developers="data"></DevelopersGridDisplay>
-            <NoDataFoundDisplay v-else-if="!isLoading && totalCount == 0"></NoDataFoundDisplay>
+            <NoDataFoundDisplay class="mt-10" v-else-if=" totalCount == 0"></NoDataFoundDisplay>
         </div>
     </div>
 </div>

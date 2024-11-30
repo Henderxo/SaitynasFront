@@ -7,11 +7,12 @@ const props = defineProps({
     game: {type: Object as PropType<Game>, required: true}
 })
 const router = useRouter()
+
 </script>
 
 <template>
     <div style=" padding: 2px; width: 175px; height: 250px; overflow: hidden;  text-overflow: ellipsis;" class="">
-        <div  @click="router.push({name: 'gameDetails', params: {id: game._id}})" class="container relative iconPointer">
+        <div  @click="router.replace({path: `/games/${game._id}`})" class="container relative iconPointer">
             <img class="imgDisplay" :src="prepareImageSrc(game.photo)">
             <div class="middle ">
                 <img src="@/assets/icons/arrowIcon.png" class="w-16 ">

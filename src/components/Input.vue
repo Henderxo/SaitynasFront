@@ -5,11 +5,12 @@ const props = defineProps({
     name: {type: String, required: true},
     type: {type: String, default: 'text'},
     value: {type: String, default: undefined},
-    label: {type: String, required: true},
+    label: {type: String, required: false},
     leftIcon: {type: String, default: undefined},
     rightIcon: {type: String, default: undefined},
     placeHolder: {type: String, default: ''},
-    isTextArea: {type: Boolean, default: false}
+    isTextArea: {type: Boolean, default: false},
+    rows: {type: String, default: '6'}
 })
 const name = toRef(props, 'name')
 const type = ref(props.type)
@@ -43,8 +44,8 @@ function toggleVisibility(): void{
       :placeholder="placeHolder"
       @change="handleChange"
       @blur="handleBlur"
-      rows="6"
-      maxlength="250"
+      :rows="rows"
+      maxlength="200"
     />
     <img @click="toggleVisibility()" class="icon ml-2 mr-1 iconPointer" v-if="rightIcon" :src="rightIcon">
     </div>
@@ -55,7 +56,7 @@ function toggleVisibility(): void{
 
 </template>
 
-<style scoped>
+<style>
 textarea{
     border: none;
     outline: none;

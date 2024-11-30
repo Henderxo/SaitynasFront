@@ -32,14 +32,6 @@ export function isTokenValid(token: String|null): boolean{
     return false
 }
 
-// export async function refreshToken(): Promise<APIRequest>{
-//     const res = await refreshAuthToken()
-//     if(!res.error && res.token){
-//         localStorage.setItem("token", res.token as  string)
-//         localStorage.setItem("currentUser", JSON.stringify(res.data as Account))
-//     }
-//     return res
-// }
 
 export function removeToken(): void {
     localStorage.removeItem("token")

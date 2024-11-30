@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-<div :class="`${props.class}`">
+<div :class="`${props.class} rounded-xl p-5`">
         <div v-for="game in games" :key="(game._id as string)">
             <GameGridElement :game="game"></GameGridElement>
         </div>

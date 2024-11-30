@@ -58,3 +58,87 @@
 .purple{
     background-color: rgb(54, 47, 80);
 }
+
+
+
+
+.darkPurple textarea{
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: rgb(28, 25, 43);
+    resize: none;
+    color: white;
+}
+.darkPurple textarea:focus{
+    border-color: rgb(28, 25, 43);
+}
+.darkPurple .main{
+    width: 100%;
+}
+.darkPurple .help-message{
+    color: black;
+}
+.darkPurple .icon{
+    width: 20px;
+    height: 20px;
+}
+.darkPurple input{
+    border:none;
+    background-color: transparent;
+    width: 100%;
+    color: white;
+}
+.darkPurple label{
+    color: rgb(28, 25, 43);
+}
+.darkPurple .textField{
+    background-color: rgb(28, 25, 43);
+    margin-bottom: 4px;
+}
+.darkPurple .textField:focus-within{
+    border: 2px solid  orange;
+}
+
+.darkPurple.main.has-error textarea{
+    background-color: rgb(28, 25, 43);
+}
+.darkPurple.main.has-error .textField:focus-within{
+    border:  2px solid orange;
+}
+.darkPurple.main.has-error .textField{
+    background-color: rgb(28, 25, 43);
+}
+.darkPurple.main.has-error input{
+    background-color: rgb(28, 25, 43);
+}
+.darkPurple.main.has-error ::placeholder{
+    color:rgba(255, 255, 255, 0.445)
+}
+.darkPurple.main.has-error .help-message{
+    color: white
+}
+
+.darkPurple input:focus{
+    outline: none;
+}
+.darkPurple.main.has-error input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    box-shadow: 0 0 0 30px rgb(28, 25, 43) inset;
+    -webkit-text-fill-color: white;
+}
+.darkPurple.main input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    box-shadow: 0 0 0 30px rgb(28, 25, 43) inset;
+    -webkit-text-fill-color: white;
+}
+
+.darkPurple.main.has-error textarea:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    box-shadow: 0 0 0 30px rgb(28, 25, 43) inset;
+}
+.darkPurple.main textarea:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    box-shadow: 0 0 0 30px rgb(28, 25, 43) inset;
+    -webkit-text-fill-color: white;
+}

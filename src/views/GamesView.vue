@@ -26,7 +26,7 @@ watch(useModalStore().isTrigger, ()=>{
         </div>
         <div class="">
             <GamesGridDisplay v-if="!isLoading && totalCount != 1" :games="data"></GamesGridDisplay>
-            <NoDataFoundDisplay v-else-if="!isLoading && totalCount == 0"></NoDataFoundDisplay>
+            <NoDataFoundDisplay class="mt-10" v-else-if=" totalCount == 0"></NoDataFoundDisplay>
         </div>
     </div>
 </div>

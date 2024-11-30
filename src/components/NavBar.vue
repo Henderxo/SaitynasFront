@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/AuthStore';
 import { prepareImageSrc } from '@/utils/imageUtils';
-
-
+import { ref } from 'vue'
+import Menu from './Menu.vue';
+const isMenuOpen = ref(false)
+function toggleMenu(){
+  isMenuOpen.value = !isMenuOpen.value
+}
+function logOut(){
+  toggleMenu()
+  useAuthStore().logUserOut()
+}
 </script>
 
 <template>
@@ -17,15 +25,32 @@ import { prepareImageSrc } from '@/utils/imageUtils';
     <div v-if="!useAuthStore().isUserLoggedIn()" class="float-end font-bold">
         <RouterLink class="float-end flex justify-center items-center" :to="{name: 'login'}">Login</RouterLink>
     </div>
-    <div @click="useAuthStore().logUserOut()" v-else class="icon flex justify-center items-center w-36 float-end">
-        <img v-if="!useAuthStore().currentUser?.photo"class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
-        <img v-else class="profileIcon w-12 rounded-full" :src="prepareImageSrc((useAuthStore().currentUser?.photo as string))">
-    </div>
+    <div @click="useAuthStore().logUserOut()" style="min-width: 100px ;" v-else class="icon flex justify-center items-center w-36 float-end">
+        <img @click.stop="toggleMenu()" v-if="!useAuthStore().currentUser?.photo"class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
+        <img @click.stop="toggleMenu()" v-else class="profileIcon w-12 rounded-full" :src="prepareImageSrc((useAuthStore().currentUser?.photo as string))">
+    </div> 
+    <Transition name="bounce">
+      <Menu  v-if="isMenuOpen" @remove-menu="toggleMenu()" @logout="logOut()"></Menu>
+    </Transition>
 </div>
 
 </template>
 
 <style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .icon{
     height: 75px;
 }

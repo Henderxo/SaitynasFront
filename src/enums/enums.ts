@@ -1,16 +1,22 @@
 export const gameGenres = {
-    action: 'Action',
-    adventure: 'Adventure',
-    rpg: 'RPG',
-    strategy: 'Strategy',
-    sports: 'Sports',
-    simulation: 'Simulation',
-    puzzle: 'Puzzle',
-    shooter: 'Shooter',
-    horror: 'Horror',
-    fantasy: 'Fantasy',
-    racing: 'Racing',
+  action: 'Action',
+  adventure: 'Adventure',
+  rpg: 'Rpg',
+  strategy: 'Strategy',
+  sports: 'Sports',
+  simulation: 'Simulation',
+  puzzle: 'Puzzle',
+  shooter: 'Shooter',
+  horror: 'Horror',
+  fantasy: 'Fantasy',
+  racing: 'Racing'
 };
+export const userTypes = {
+  admin: 'admin',
+  dev: 'dev',
+  guest: 'guest'
+};
+
 
 export const gamePlatforms = {
     pc: 'Pc',

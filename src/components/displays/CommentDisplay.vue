@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import GridElement from '../elements/GridElement.vue';
 import { type Comment } from '@/types/Comment';
 import CommentElement from '../elements/CommentElement.vue';
 const props = defineProps({

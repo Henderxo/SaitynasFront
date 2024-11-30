@@ -4,25 +4,27 @@ import { type GetAllDataOptions } from '@/types/GetAllDataOptions'
 import type { User } from '@/types/User'
 import type { Developer } from '@/types/Developer'
 import type { Game } from '@/types/Game'
-
+import { useNotificationStore } from '@/stores/NotificationStore'
+import { useAuthStore } from '@/stores/AuthStore'
 export function useCollections(){
     const isLoading = ref<boolean>(true)
-    const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]|Game>([])
-    const totalCount = ref<Number>(0)
-
+    const dataList = ref<User[]|Developer|Game[]|Comment[]|Developer[]|Game|Comment|User>([])
+    const totalCount = ref<Number>()
+    const Notifications = useNotificationStore()
     async function getCollection({collectionName, expand = null, id}: GetAllDataOptions){
 
         const url = formUrl(collectionName,expand,id)
-        console.log(url)
         isLoading.value = true
         const res = await getData(url as string)
         if(res.error === true){
+            Notifications.errorNotification(`Error: ${res.message}`)
+            useAuthStore().isUserLoggedIn()
             dataList.value = []
             isLoading.value = true
+            totalCount.value = 0
             return
         }
-        console.log(res.data)
-        dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]|Game
+        dataList.value = res.data as User[]|Developer|Game[]|Comment[]|Developer[]|Game|Comment|User
         if(Array.isArray(dataList.value)){
             totalCount.value = (dataList.value as Object[]).length
         }

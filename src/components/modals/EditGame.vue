@@ -11,7 +11,8 @@ import { gameGenres, playerTypes, gamePlatforms, controllerSupport } from '@/enu
 import { useCollections } from '@/composables/getData';
 import { onMounted } from 'vue';
 import type { Game } from '@/types/Game';
-const {data, isLoading, getCollection} = useCollections()
+import NoDataFoundDisplay from '../displays/NoDataFoundDisplay.vue';
+const {data, isLoading, getCollection, totalCount} = useCollections()
 const props = defineProps({
     id: {type: String, required: true}
 })
@@ -32,7 +33,7 @@ function onSubmit(values: any){
 <div style="min-width: 800px; min-height: 500px;" class="purple p-16">
     <div class="flex flex-col">
         <div>
-            <a class="text-4xl">Edit a new game</a>
+            <a class="text-4xl">Edit game</a>
         </div>
         <Form @submit="onSubmit" :validation-schema="editGame">
             <div v-if="!isLoading" class="flex">
@@ -49,11 +50,12 @@ function onSubmit(values: any){
             </div>
             <Select v-if="!isLoading" class="mt-2" :value="(data as Game).playerType" :name="'playerType'" :default-values="Object.values(playerTypes)" :place-holder="'Select player type...'" :label="'Player type'" :showing="'playerType'" ></Select>
             <Input v-if="!isLoading" class="mt-2" :value="((data as Game).description as string)" :is-text-area="true" :type="'textarea'"   :place-holder="'Description...'"  :name="'description'" :label="'Description'"></Input>
-            <FileInput class="mt-2" :name="'photo'" :accept="'image/*'" :placeholder="'Add photo'" :label="''"> </FileInput>    
+            <FileInput v-if="!isLoading" class="mt-2" :name="'photo'" :accept="'image/*'" :placeholder="'Add photo'" :label="''"> </FileInput>    
             <div v-if="!isLoading" class="w-full mt-5 flex  justify-center">
                 <button class="button w-auto h-auto justify-center items-center" type="submit">Submit updated game</button>
             </div>
         </Form>
+        <NoDataFoundDisplay class="mt-10" v-if=" totalCount == 0"></NoDataFoundDisplay>
     </div>
 </div>
 
