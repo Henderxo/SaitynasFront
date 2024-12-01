@@ -13,7 +13,7 @@ function onSubmit(values: any){
     postModalData({title: values.title, developerId: values.developer, genre: values.genre, language: values.language,
         platform: values.platform, controllerSupport: values.controllerSupport, playerType: values.playerType,
         description: values.description, photo: values.photo
-    }, 'Game successifuly created.')
+    }, 'Game successifuly created.', 'game')
     useModalStore().ResetModal()
 }
 </script>

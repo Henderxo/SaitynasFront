@@ -10,7 +10,7 @@ const {postModalData} = useCollectionsUpdater('developers')
 function onSubmit(values: any){
     postModalData({name: values.developerName, founder: values.founder, founded: values.date, 
         headquarters: values.headquarters, userId: values.user, photo: values.photo, description: values.description
-    }, 'Developer successifuly created.')
+    }, 'Developer successifuly created.', 'developer')
     useModalStore().ResetModal()
 }
 </script>

@@ -16,9 +16,9 @@ const {data, isLoading, getCollection, totalCount} = useCollections()
 onMounted(()=>{
     getCollection({collectionName: 'users', id: `${props.id}`})
 })
-const { updateModalData } = useCollectionsUpdater(`users/${props.id}`)
+const { updateModalProfileData } = useCollectionsUpdater(`users/${props.id}`)
 function onSubmit(values: any){
-    updateModalData({ username: values.username, email: values.email, password: values.password??'', type: data.value.type,
+    updateModalProfileData({ username: values.username, email: values.email, password: values.password??'', type: data.value.type,
         photo: values.photo??data.value.photo
     }, 'User successifuly created.')
     useModalStore().ResetModal()

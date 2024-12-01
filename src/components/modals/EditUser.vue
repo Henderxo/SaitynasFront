@@ -22,7 +22,7 @@ const { updateModalData } = useCollectionsUpdater(`users/${props.id}`)
 function onSubmit(values: any){
     updateModalData({ username: values.username, email: values.email, password: values.password??'', type: values.userType,
         photo: values.photo??data.value.photo
-    }, 'User successifuly created.')
+    }, 'User successifuly created.', 'base')
     useModalStore().ResetModal()
 }
 </script>

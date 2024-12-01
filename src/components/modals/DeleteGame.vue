@@ -15,7 +15,7 @@ onMounted(()=>{
     getCollection({collectionName: 'games', id: `${props.id}`})
 })
 function onSubmit(){
-    deleteModalData('Game successifuly deleted.', '/games')
+    deleteModalData('Game successifuly deleted.','game', '/games')
     useModalStore().ResetModal()
 }
 </script>

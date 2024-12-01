@@ -24,9 +24,12 @@ onMounted(async () => {
     
 })
 
-watch(useModalStore().isTrigger, ()=>{
-    getDeveloperCollection({collectionName: 'developers', expand: 'userId', id: props.id})
+watch(useModalStore().isTriggerGames, ()=>{
     getDeveloperGamesCollection({collectionName: 'developers', id: `${props.id}/games`})    
+})
+
+watch(useModalStore().isTriggerDevelopers, ()=>{
+    getDeveloperCollection({collectionName: 'developers', expand: 'userId', id: props.id})
 })
 </script>
 

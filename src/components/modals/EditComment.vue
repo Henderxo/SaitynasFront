@@ -22,7 +22,7 @@ onMounted(()=>{
 
 function onSubmit(values: any){
     updateModalData({title: values.commentTitle, body: values.commentBody, gameId: data.value.gameId, userId: useAuthStore().isUserLoggedIn()?useAuthStore().currentUser?._id:''
-    }, 'Comment successifuly updated.')
+    }, 'Comment successifuly updated.', 'comment')
     useModalStore().ResetModal()
 }
 </script>

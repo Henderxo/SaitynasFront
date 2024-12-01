@@ -15,7 +15,7 @@ onMounted(()=>{
     getCollection({collectionName: 'developers', expand: 'userId', id: `${props.id}`})
 })
 function onSubmit(){
-    deleteModalData('Developer successifuly deleted.', '/')
+    deleteModalData('Developer successifuly deleted.', 'developer', '/')
     useModalStore().ResetModal()
 }
 </script>

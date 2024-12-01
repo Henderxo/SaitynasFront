@@ -11,7 +11,29 @@ export function useCollectionsUpdater(collectionUrl: String){
     const ModalStore = useModalStore()
     const Router = useRouter()
 
-    async function postModalData(data: Object, message: String, routing?: String): Promise<void>{
+
+    async function handleFlagTrigger(flag: string) {
+        switch (flag) {
+            case 'base':
+                ModalStore.TriggerChange()
+                break;
+            case 'comment':
+                ModalStore.TriggerCmmentChange()
+                break;
+            case 'developer':
+                ModalStore.TriggerDeveloperChange()
+                break;
+            case 'game':
+                ModalStore.TriggerGameChange()
+                break;
+            default:
+                ModalStore.TriggerChange()
+                break;
+        }
+
+    }
+
+    async function postModalData(data: Object, message: String, flag: String='base', routing?: String): Promise<void>{
 
         const res = await postData(collection.value as string, data)
         if(res.error){
@@ -21,12 +43,12 @@ export function useCollectionsUpdater(collectionUrl: String){
             return 
         }
         NotificationStore.successNotification(`Success: ${message}`)
-        routing?null:ModalStore.TriggerChange()
+        routing?null:handleFlagTrigger(flag as string)
         ModalStore.ResetModal()
         routing?Router.replace({path: `${routing}`}):null
     }
 
-    async function updateModalData(data: Object, message: String): Promise<void>{
+    async function updateModalData(data: Object, message: String, flag: String='base'): Promise<void>{
         const res = await updateData(collection.value as string, data)
         if(res.error){
             NotificationStore.errorNotification(`Error: ${res.message}`)
@@ -35,12 +57,26 @@ export function useCollectionsUpdater(collectionUrl: String){
             return 
         }
         NotificationStore.successNotification(`Success: ${message}`)
-        ModalStore.TriggerChange()
+        handleFlagTrigger(flag as string)
+        ModalStore.ResetModal()
+    }
+
+    async function updateModalProfileData(data: Object, message: String): Promise<void>{
+        const res = await updateData(collection.value as string, data)
+        if(res.error){
+            NotificationStore.errorNotification(`Error: ${res.message}`)
+            useAuthStore().isUserLoggedIn()
+            ModalStore.ResetModal()
+            return 
+        }
+        NotificationStore.successNotification(`Success: ${message}`)
+        
+        useModalStore().TriggerUserChange()
         ModalStore.ResetModal()
     }
 
     
-    async function deleteModalData(message: String, routing?: String): Promise<void>{
+    async function deleteModalData(message: String, flag: String='base', routing?: String): Promise<void>{
 
         const res = await deleteData(collection.value as string)
         if(res.error){
@@ -50,11 +86,11 @@ export function useCollectionsUpdater(collectionUrl: String){
             return 
         }
         NotificationStore.successNotification(`Success: ${message}`)
-        routing?null:ModalStore.TriggerChange()
+        routing?null:handleFlagTrigger(flag as string)
         ModalStore.ResetModal()
         routing?Router.replace({path: `${routing}`}):null
         
     }
 
-    return {postModalData, updateModalData, deleteModalData}
+    return {postModalData, updateModalData, deleteModalData, updateModalProfileData}
 }

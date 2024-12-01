@@ -22,7 +22,7 @@ onMounted(()=>{
 function onSubmit(values: any){
     updateModalData({name: values.developerName, founder: values.founder, founded: values.date, 
         headquarters: values.headquarters, userId: values.user, photo: values.photo??(data.value as Developer).photo, description: values.description
-    }, 'Developer successifuly updated.')
+    }, 'Developer successifuly updated.', 'developer')
     useModalStore().ResetModal()
 }
 </script>

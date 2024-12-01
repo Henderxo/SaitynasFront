@@ -5,16 +5,16 @@ export const loginShema = {
 
 export const createDeveloper = {
     user: 'required',
-    developerName: 'required|start|end|minLength4|maxLength25',
-    founder: 'required|start|end|minLength4|maxLength25',
-    headquarters: 'required|start|end|minLength4|maxLength25',
+    developerName: 'required|start|end|minLength4|maxLength40',
+    founder: 'required|start|end|minLength4|maxLength40',
+    headquarters: 'required|start|end|minLength4|maxLength40',
     date: 'required',
     photo: 'photoValidation',
     description: 'required|minLength10'
 }
 
 export const createGame = {
-    title: 'required|start|end|minLength4|maxLength25',
+    title: 'required|start|end|minLength4|maxLength40',
     language: 'required|start|end|minLength4|maxLength25',
     platform: 'required',
     controllerSupport: 'required',
@@ -68,7 +68,7 @@ export const editComment = {
 }
 
 export const editGame = {
-    title: 'required|start|end|minLength4|maxLength25',
+    title: 'required|start|end|minLength4|maxLength40',
     language: 'required|start|end|minLength4|maxLength25',
     platform: 'required',
     controllerSupport: 'required',
@@ -81,9 +81,9 @@ export const editGame = {
 
 export const editDeveloper = {
     user: 'required',
-    developerName: 'required|start|end|minLength4|maxLength25',
-    founder: 'required|start|end|minLength4|maxLength25',
-    headquarters: 'required|start|end|minLength4|maxLength25',
+    developerName: 'required|start|end|minLength4|maxLength40',
+    founder: 'required|start|end|minLength4|maxLength40',
+    headquarters: 'required|start|end|minLength4|maxLength40',
     date: 'required',
     photo: '',
     description: 'required|minLength10'

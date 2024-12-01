@@ -14,7 +14,7 @@ onMounted(async () => {
     
 })
 
-watch(useModalStore().isTrigger, ()=>{
+watch(useModalStore().isTriggerDevelopers, ()=>{
     getCollection({collectionName: 'developers', expand: 'userId'})
 })
 

@@ -11,7 +11,7 @@ const {data, isLoading, getCollection, totalCount} = useCollections()
 onMounted(async () => {
     getCollection({collectionName: 'games'})
 })
-watch(useModalStore().isTrigger, ()=>{
+watch(useModalStore().isTriggerGames, ()=>{
     getCollection({collectionName: 'games'})
 })
 </script>
@@ -25,7 +25,7 @@ watch(useModalStore().isTrigger, ()=>{
             <button @click="useModalStore().SetModal({component: CreateGame})" v-if="useAuthStore().isAdmin() || useAuthStore().isDev()" class="  rounded-xl px-4 h-12 text-xl button">Add a new Game</button>
         </div>
         <div class="">
-            <GamesGridDisplay v-if="!isLoading && totalCount != 1" :games="data"></GamesGridDisplay>
+            <GamesGridDisplay v-if="!isLoading && totalCount != 0" :games="data"></GamesGridDisplay>
             <NoDataFoundDisplay class="mt-10" v-else-if=" totalCount == 0"></NoDataFoundDisplay>
         </div>
     </div>

@@ -32,9 +32,13 @@ onMounted(async () => {
     
 })
 
-watch(useModalStore().isTrigger, ()=>{
-    getGameCollection({collectionName: 'games', expand: 'developerId', id: props.id})
+watch(useModalStore().isTriggerComment, ()=>{
     getGameCommentsCollection({collectionName: 'games', expand: 'userId', id: `${props.id}/comments`})
+})
+
+
+watch(useModalStore().isTriggerGames, ()=>{
+    getGameCollection({collectionName: 'games', expand: 'developerId', id: props.id})
     watch(gameData, ()=>{
         getDeveloperGamesCollectio({collectionName: 'developers', id: `${((gameData.value as Game).developerId as Developer)._id}/games`})
     }, {once: true})

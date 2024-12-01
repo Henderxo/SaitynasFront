@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/AuthStore';
 import { prepareImageSrc } from '@/utils/imageUtils';
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Menu from './Menu.vue';
 import { useModalStore } from '@/stores/ModalStore';
 import EditUserProfile from './modals/EditUserProfile.vue';
@@ -9,9 +9,11 @@ import { useCollections } from '@/composables/getData';
 const {data, isLoading, getCollection} = useCollections()
 const isMenuOpen = ref(false)
 onMounted(()=> {
-
   getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
-
+})
+watch(useModalStore().isTriggerUser, ()=>{
+  console.log('rat')
+  getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
 })
 
 function toggleMenu(){

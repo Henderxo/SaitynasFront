@@ -77,6 +77,13 @@ defineRule('minLength4', (value: string) => {
     }
     return true;
   });
+
+  defineRule('maxLength40', (value: string) => {
+    if (value.length >= 40) {
+      return 'Field must be shorter than 40 characters';
+    }
+    return true;
+  });
   
   defineRule('maxLength45', (value: string) => {
     if (value.length >= 45) {

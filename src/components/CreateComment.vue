@@ -6,6 +6,8 @@ import { Form } from 'vee-validate';
 import Input from './Input.vue';
 import { createComment } from '@/validation/validationShemas';
 import { useCollectionsUpdater } from '@/composables/postData';
+import { onMounted } from 'vue';
+import { useCollections } from '@/composables/getData';
 const router = useRouter()
 const {postModalData} = useCollectionsUpdater('comments')
 const props = defineProps({
@@ -13,7 +15,7 @@ const props = defineProps({
 })
 function onSubmit(values: any){
     postModalData({title: values.commentTitle, body: values.commentBody, gameId: props.id},
-    'Comment successifuly created.')
+    'Comment successifuly created.', 'comment')
 }
 
 function doForward(){

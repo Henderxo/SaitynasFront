@@ -15,7 +15,7 @@ onMounted(()=>{
     getCollection({collectionName: 'comments', expand: 'userId', id: `${props.id}`})
 })
 function onSubmit(){
-    deleteModalData('Comment successifuly deleted.')
+    deleteModalData('Comment successifuly deleted.', 'comment')
     useModalStore().ResetModal()
 }
 </script>

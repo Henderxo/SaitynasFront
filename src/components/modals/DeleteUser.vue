@@ -16,7 +16,7 @@ onMounted(()=>{
     getCollection({collectionName: 'users', id: `${props.id}`})
 })
 function onSubmit(){
-    deleteModalData('User successifuly deleted.')
+    deleteModalData('User successifuly deleted.', 'base')
     if(props.id === useAuthStore().currentUser?._id){
         useAuthStore().logUserOut()
     }

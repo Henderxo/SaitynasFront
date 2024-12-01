@@ -11,7 +11,7 @@ const { postModalData } = useCollectionsUpdater('users')
 function onSubmit(values: any){
     postModalData({ username: values.username, email: values.email, password: values.password, type: values.userType,
         photo: values.photo
-    }, 'User successifuly created.')
+    }, 'User successifuly created.', 'base')
     useModalStore().ResetModal()
 }
 </script>

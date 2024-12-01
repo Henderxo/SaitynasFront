@@ -23,6 +23,7 @@ function parseToken(token: string): number {
     }
 }
 
+
 export function isTokenValid(token: String|null): boolean {
     if (token !== null && token.length > 1) {
         
