@@ -15,14 +15,22 @@ instance.defaults.headers.post["Content-Type"] = 'multipart/form-data'
 instance.defaults.headers.put["Content-Type"] = 'multipart/form-data'
 instance.interceptors.request.use(
     async (config) => {
-
-        if (!useAuthStore().isUserLoggedIn() && !refreshing && (useAuthStore().currentUser !== null || useAuthStore().authToken !== null)) {
+        console.log('start')
+        console.log(!isTokenValid(useAuthStore().authToken))
+        console.log(!refreshing)
+        console.log((useAuthStore().currentUser !== null || useAuthStore().authToken !== null))
+        console.log(useAuthStore().currentUser !== null)
+        console.log(useAuthStore().authToken !== null)
+        if (!isTokenValid(useAuthStore().authToken) && !refreshing && (useAuthStore().currentUser !== null || useAuthStore().authToken !== null)) {
+            console.log('refreshing lul')
             refreshing=true
             const res = await refreshToken();  
+            console.log(res)
             if (!res.error && res.data.token) {
                 localStorage.setItem('token', res.data.token);
                 useAuthStore().refreshUser(res.token)
             }else{
+                console.log('pig')
                 useAuthStore().logUserOut()
             }
             refreshing=false

@@ -4,6 +4,7 @@ import { type User } from "@/types/User";
 import { isTokenValid, registerNewLogin, removeToken } from "@/services/AuthService";
 import { useRouter } from "vue-router";
 import { useNotificationStore } from "./NotificationStore";
+import { refreshToken } from "@/services/APIService";
 
 
 export const useAuthStore = defineStore('auth', ()=>{
@@ -46,15 +47,25 @@ export const useAuthStore = defineStore('auth', ()=>{
     }
 
     function isUserLoggedIn(): boolean{
-        if(!isTokenValid(authToken.value as string)){
+        if(!isTokenValid(authToken.value as string) && currentUser.value === null){
             return false
         }
         return true
     }
 
+    async function refresh(): Promise<boolean>{
+        const res = await refreshToken()
+        if(!res.error){
+            return true
+        }else{
+            return false
+        }
+    }
+
     async function logUserOut(noReplace: boolean = false): Promise<void>{
         currentUser.value = null
         authToken.value = null
+        
         removeToken()
         if(!noReplace){
             router.replace({name: 'home'})
