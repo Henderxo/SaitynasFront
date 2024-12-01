@@ -16,7 +16,7 @@ export default defineConfig({
     },
   },define: {
     global:{
-      api: 'http://localhost:3000/'
+      api: 'https://saitynas-api.onrender.com/'
     }
   }
 })
