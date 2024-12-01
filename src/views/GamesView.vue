@@ -9,10 +9,10 @@ import CreateGame from '@/components/modals/CreateGame.vue';
 const {data, isLoading, getCollection, totalCount} = useCollections()
 
 onMounted(async () => {
-    getCollection({collectionName: 'games', expand: 'developerId'})
+    getCollection({collectionName: 'games'})
 })
 watch(useModalStore().isTrigger, ()=>{
-    getCollection({collectionName: 'games', expand: 'developerId'})
+    getCollection({collectionName: 'games'})
 })
 </script>
 

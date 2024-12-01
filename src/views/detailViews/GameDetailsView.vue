@@ -93,7 +93,7 @@ const smallDeveloperGame = computed(() => {
             <button @click="useModalStore().SetModal({component: EditGame, componentProps: {id: (gameData as Game)._id}})" class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
             <button @click="useModalStore().SetModal({component: DeleteGame, componentProps: {id: (gameData as Game)._id}})" class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
         </div>
-        <div  v-if="!commentsAreLoading" class="mb-20">
+        <div  v-if="!commentsAreLoading && !gameIsLoading" class="mb-20">
             <div  class="text-2xl mt-4 mb-2">
                 <a>Comments: </a>
             </div>

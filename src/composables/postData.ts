@@ -38,6 +38,7 @@ export function useCollectionsUpdater(collectionUrl: String){
         ModalStore.TriggerChange()
         ModalStore.ResetModal()
     }
+
     
     async function deleteModalData(message: String, routing?: String): Promise<void>{
 

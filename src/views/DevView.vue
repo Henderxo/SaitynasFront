@@ -8,7 +8,7 @@ const AuthStore = useAuthStore()
 const {data, isLoading, getCollection, totalCount} = useCollections()
 
 onMounted(async () => {
-    getCollection({collectionName: 'users', expand: 'userId', id: `${AuthStore.currentUser?._id}/developers`})
+    getCollection({collectionName: 'users', id: `${AuthStore.currentUser?._id}/developers`})
 })
 </script>
 
