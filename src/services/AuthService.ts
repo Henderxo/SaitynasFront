@@ -34,8 +34,6 @@ export function isTokenValid(token: String|null): boolean {
 }
 
 export function removeToken(): void {
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
     localStorage.removeItem("currentUser")
     localStorage.removeItem("token")
 }

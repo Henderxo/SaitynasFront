@@ -9,9 +9,9 @@ import { useCollections } from '@/composables/getData';
 const {data, isLoading, getCollection} = useCollections()
 const isMenuOpen = ref(false)
 onMounted(()=> {
-  if(useAuthStore().isUserLoggedIn()){
-    getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
-  }
+
+  getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
+
 })
 
 function toggleMenu(){
@@ -44,7 +44,7 @@ function editProfile(){
     </div>
     <div style="min-width: 100px ;" v-else class="icon flex justify-center items-center w-36 float-end">
         <img @click.stop="toggleMenu()" v-if="!useAuthStore().currentUser?.photo"class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
-        <img @click.stop="toggleMenu()" v-else-if="!isLoading" class="profileIcon w-12 rounded-full" :src="prepareImageSrc((data.photo as string))">
+        <img @click.stop="toggleMenu()" v-else-if="!isLoading" class="profileIcon w-12 rounded-full" :src="prepareImageSrc((data.photo as string)??useAuthStore().currentUser?.photo)">
     </div> 
     
 </div>

@@ -53,19 +53,9 @@ export const useAuthStore = defineStore('auth', ()=>{
         return true
     }
 
-    async function refresh(): Promise<boolean>{
-        const res = await refreshToken()
-        if(!res.error){
-            return true
-        }else{
-            return false
-        }
-    }
-
     async function logUserOut(noReplace: boolean = false): Promise<void>{
         currentUser.value = null
         authToken.value = null
-        
         removeToken()
         if(!noReplace){
             router.replace({name: 'home'})
