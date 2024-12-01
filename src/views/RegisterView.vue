@@ -35,7 +35,7 @@ function onSubmit(values: any): void{
                 </div>
                 <FileInput class="mt-2" :name="'photo'" :accept="'image/*'" :placeholder="'Add photo'" :label="''"> </FileInput>    
                 <div class="w-full flex justify-center" style="height: 80px;">
-                    <button class="w-full rounded-xl mt-10" style="background-color: orange;" type="submit">Sign up</button>
+                    <button class="w-full rounded-xl text-lg mt-10" style="background-color: orange;" type="submit">Sign up</button>
                 </div> 
             </Form>
             <div class="flex justify-center mt-5">
@@ -52,6 +52,7 @@ function onSubmit(values: any): void{
     width: 600px;
     height: 750px
 }
+
 
 
 

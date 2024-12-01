@@ -10,6 +10,7 @@ import { useModalStore } from '@/stores/ModalStore';
 import EditDeveloper from '@/components/modals/EditDeveloper.vue';
 import DeleteDeveloper from '@/components/modals/DeleteDeveloper.vue';
 import type { User } from '@/types/User';
+import CreateGameFromDevPage from '@/components/modals/CreateGameFromDevPage.vue';
 const AuthStore = useAuthStore()
 const {data: developerData, isLoading: developerIsLoading, getCollection: getDeveloperCollection} = useCollections()
 const {data: developerGamesData, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollection, totalCount: totalGames} = useCollections()
@@ -48,7 +49,7 @@ watch(useModalStore().isTrigger, ()=>{
         </div>
     </div>
     <div v-if="!developerIsLoading && (AuthStore.isAdmin() || (AuthStore.isDev() && ((developerData as Developer).userId as User)._id === AuthStore.currentUser?._id))" class="flex  mt-5">
-        <button class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">New Game</button>
+        <button @click="useModalStore().SetModal({component: CreateGameFromDevPage, componentProps: {devId: (developerData as Developer)._id}})" class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">New Game</button>
         <button @click="useModalStore().SetModal({component: EditDeveloper, componentProps: {id: (developerData as Developer)._id}})" class="button float-right mr-4 ml-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
         <button @click="useModalStore().SetModal({component: DeleteDeveloper, componentProps: {id: (developerData as Developer)._id}})" class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
     </div>

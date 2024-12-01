@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/AuthStore";
 import { type AxiosResponse } from "axios"
 import axios from "axios";
 class HttpError extends Error {

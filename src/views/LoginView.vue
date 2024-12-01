@@ -27,7 +27,7 @@ function onSubmit(values: any): void{
                     <Input :type="'password'" :place-holder="'Enter password...'" :left-icon="'https://cdn-icons-png.flaticon.com/512/61/61457.png'" :right-icon="'https://cdn-icons-png.flaticon.com/512/65/65000.png'" :name="'password'" :label="'Password'"></Input>
                 </div>
                 <div class="w-full flex justify-center" style="height: 80px;">
-                    <button class="w-full rounded-xl mt-10" style="background-color: orange;" type="submit">Login</button>
+                    <button class="w-full text-lg rounded-xl mt-10" style="background-color: orange;" type="submit">Login</button>
                 </div> 
             </Form>
             <div class="flex justify-center mt-5">

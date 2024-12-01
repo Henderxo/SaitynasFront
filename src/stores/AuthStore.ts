@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 import { readonly, ref } from "vue";
 import { type User } from "@/types/User";
-import { registerNewLogin, removeToken, isTokenValid } from "@/services/AuthService";
+import { isTokenValid, registerNewLogin, removeToken } from "@/services/AuthService";
 import { useRouter } from "vue-router";
 import { useNotificationStore } from "./NotificationStore";
+
 
 export const useAuthStore = defineStore('auth', ()=>{
     const currentUser = ref<User|null>(JSON.parse(localStorage.getItem('currentUser')))
@@ -12,35 +13,40 @@ export const useAuthStore = defineStore('auth', ()=>{
     const router = useRouter()
 
     async function logUserIn(email: String, password: String): Promise<void>{
-        const res = await registerNewLogin(email, password)
+
+        const res = await registerNewLogin(email, password);
         authToken.value = typeof res.token !== 'undefined' && isTokenValid(res.token) ? res.token : null
         if(res.error || !isUserLoggedIn()){
             Notifications.errorNotification(`Error: ${res.message}`)
             return
         }
-        currentUser.value = res.data as User
-        router.push({name: 'home'})
+        currentUser.value = res.data as User;
+        router.push({ name: 'home' });
+
     }
 
-    function isAdmin(): boolean{
+
+    async function refreshUser(token: string): Promise<void>{
+        authToken.value = typeof token !== 'undefined' && isTokenValid(token) ? token : null
+
+    }
+
+    function isAdmin(): boolean {
         if(isUserLoggedIn() && currentUser.value?.type === 'admin'){
             return true
         }
-        return false
+        return false;
     }
 
-    function isDev(): boolean{
+    function isDev(): boolean {
         if(isUserLoggedIn() && currentUser.value?.type === 'dev'){
             return true
         }
-        return false
+        return false;
     }
 
     function isUserLoggedIn(): boolean{
-        if(!isTokenValid(authToken.value)){
-            if(authToken.value !== null || currentUser.value !== null){
-                logUserOut()
-            }
+        if(!isTokenValid(authToken.value as string)){
             return false
         }
         return true
@@ -55,5 +61,5 @@ export const useAuthStore = defineStore('auth', ()=>{
         }
     }
 
-    return {logUserIn, isUserLoggedIn, logUserOut, currentUser: readonly(currentUser), isAdmin, isDev}
+    return {logUserIn,authToken: readonly(authToken), isUserLoggedIn, logUserOut, currentUser: readonly(currentUser), isAdmin, isDev, refreshUser}
 })

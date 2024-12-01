@@ -5,6 +5,7 @@ import { onMounted } from 'vue';
 import { timeSince } from '@/utils/timeUtils';
 import { useCollections } from '@/composables/getData';
 import NoDataFoundDisplay from '../displays/NoDataFoundDisplay.vue';
+import { prepareImageSrc } from '@/utils/imageUtils';
 const {data, isLoading, getCollection, totalCount} = useCollections()
 const props = defineProps({
     id: {type: String, required: true}

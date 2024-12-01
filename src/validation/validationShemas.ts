@@ -1,6 +1,6 @@
 export const loginShema = {
     email: 'email',
-    password: 'password'
+    password: 'required'
 }
 
 export const createDeveloper = {
@@ -28,7 +28,7 @@ export const createGame = {
 export const createUser = {
     username: 'required|start|end|minLength4|maxLength25',
     email: 'email',
-    password: 'password',
+    password: 'password|required',
     userType: 'required',
     photo: 'photoValidation',
 }
@@ -36,15 +36,23 @@ export const createUser = {
 export const createUserSimple = {
     username: 'required|start|end|minLength4|maxLength25',
     email: 'email',
-    password: 'password',
+    password: 'password|required',
     photo: 'photoValidation',
 }
 
 export const editUser = {
     username: 'required|start|end|minLength4|maxLength25',
     email: 'email',
-    password: '',
+    password: 'password',
     userType: 'required',
+    photo: '',
+}
+
+export const editProfile = {
+    username: 'required|start|end|minLength4|maxLength25',
+    email: 'email',
+    password: 'password',
+    userType: '',
     photo: '',
 }
 

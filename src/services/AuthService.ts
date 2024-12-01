@@ -1,9 +1,10 @@
 import { type User } from "@/types/User"
-import {  resetInstance, getUserAuthData } from "./APIService"
+import { getUserAuthData } from "./APIService"
 import type { APIRequest } from "@/types/APIRequest"
+import Cookies from 'js-cookie'
 
 export async function registerNewLogin(email: String, password: String): Promise<APIRequest>{
-    const res = await getUserAuthData(email, password)
+    const res = await getUserAuthData(email as string, password as string)
     let jwtToken = typeof res.token !== 'undefined' ? res.token : ''
     if(!res.error && jwtToken && isTokenValid(jwtToken)){
         localStorage.setItem("token", jwtToken as string)
@@ -12,34 +13,29 @@ export async function registerNewLogin(email: String, password: String): Promise
     return res
 }
 
-function parseToken(token: String): Number{
+function parseToken(token: string): number {
     try{
         const arrayToken = token.split('.')
         const tokenPayload = JSON.parse(atob(arrayToken[1]))
-        return tokenPayload.exp as Number
+        return tokenPayload.exp as number
     }catch{
         return 0
     }
 }
 
-export function isTokenValid(token: String|null): boolean{
-    if(token !== null && token.length > 1)
-    {
-        let tokenExpDate = parseToken(token as String)
-        const currentTime = new Date().getTime() / 1000
-        return currentTime   as Number > tokenExpDate ? false : true
+export function isTokenValid(token: String|null): boolean {
+    if (token !== null && token.length > 1) {
+        
+        const tokenExpDate = parseToken(token as string);
+        const currentTime = new Date().getTime() / 1000;
+        return currentTime < tokenExpDate;
     }
-    return false
+    return false;
 }
-
 
 export function removeToken(): void {
-    localStorage.removeItem("token")
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
     localStorage.removeItem("currentUser")
-    resetInstance()
-}
-
-export function getAuthHeaders(): String {
-    const token = localStorage.getItem('token')
-    return token ? `Bearer ${token}` : ''
+    localStorage.removeItem("token")
 }

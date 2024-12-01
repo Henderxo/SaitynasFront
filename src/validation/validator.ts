@@ -24,23 +24,23 @@ defineRule('end', (value: string)=>{
 
 defineRule('photoValidation', (value: any) => {
   if (!value) {
-    return 'A photo is required.'; // Checks if no file is selected
+    return 'A photo is required.'; 
   }
 
   const MAX_SIZE_MB = 10;
-  const file = value; // Since it's one file, we don't need to access an array element
+  const file = value; 
 
   if (file.size > MAX_SIZE_MB * 1024 * 1024) {
-    return `The photo size must be less than ${MAX_SIZE_MB} MB.`; // Checks file size
+    return `The photo size must be less than ${MAX_SIZE_MB} MB.`; 
   }
 
-  // Optionally: Check file type (e.g., for images)
+
   const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
   if (!allowedTypes.includes(file.type)) {
     return 'Only JPEG, PNG, or GIF images are allowed.';
   }
 
-  return true; // Passes validation
+  return true; 
 });
 
 defineRule('start', (value: string)=>{
@@ -98,26 +98,28 @@ defineRule('email', (value: String) => {
 
 defineRule('password', (value: String) => {
     if (!value) {
-        return 'Password cannot be empty.'
+      return true
     }
-    // if (value.length < 8) {
-    //     return 'Password must be at least 8 characters long.'
-    // }
+    if (value.length < 8) {
+        return 'Password must be at least 8 characters long.'
+    }
     
-    // if (!/[a-z]/.test(value as string)) {
-    //     return 'Password must contain at least one lowercase letter.'
-    // }
+    if (!/[a-z]/.test(value as string)) {
+        return 'Password must contain at least one lowercase letter.'
+    }
     
-    // if (!/[A-Z]/.test(value as string)) {
-    //     return 'Password must contain at least one uppercase letter.'
-    // }
+    if (!/[A-Z]/.test(value as string)) {
+        return 'Password must contain at least one uppercase letter.'
+    }
     
-    // if (!/\d/.test(value as string)) {
-    //     return 'Password must contain at least one number.'
-    // }
+    if (!/\d/.test(value as string)) {
+        return 'Password must contain at least one number.'
+    }
     
-    // if (!/[!@#$%^&*.{}',;]/.test(value as string)) {
-    //     return 'Password must contain at least one special character (e.g., !@#$%^&*).'
-    // }
+    if (!/[!@#$%^&*.{}',;]/.test(value as string)) {
+        return 'Password must contain at least one special character (e.g., !@#$%^&*).'
+    }
     return true
 })
+
+

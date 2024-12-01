@@ -3,6 +3,8 @@ import { useAuthStore } from '@/stores/AuthStore';
 import { prepareImageSrc } from '@/utils/imageUtils';
 import { ref } from 'vue'
 import Menu from './Menu.vue';
+import { useModalStore } from '@/stores/ModalStore';
+import EditUserProfile from './modals/EditUserProfile.vue';
 const isMenuOpen = ref(false)
 function toggleMenu(){
   isMenuOpen.value = !isMenuOpen.value
@@ -11,12 +13,19 @@ function logOut(){
   toggleMenu()
   useAuthStore().logUserOut()
 }
+function editProfile(){
+  toggleMenu()
+  if(useAuthStore().isUserLoggedIn()){
+    useModalStore().SetModal({component: EditUserProfile, componentProps: {id: useAuthStore().currentUser?._id}})
+  }
+}
+
 </script>
 
 <template>
 
 <div v-if="!$route.meta.hideNavbar" class="topnav fixed bg-gradient-to-r from-orange-500 to-yellow-500 shadow-lg z-10 shadow-orange-500/50">
-    <div class="font-bold">
+    <div class="font-bold ZZZ">
         <RouterLink class="flex justify-center items-center" :to="{name: 'home'}">Developers</RouterLink>
         <RouterLink class="flex justify-center items-center" :to="{name: 'games'}">Games</RouterLink>
         <RouterLink v-if="useAuthStore().isAdmin()" class="flex justify-center items-center" :to="{name: 'users'}">Users</RouterLink>
@@ -25,15 +34,15 @@ function logOut(){
     <div v-if="!useAuthStore().isUserLoggedIn()" class="float-end font-bold">
         <RouterLink class="float-end flex justify-center items-center" :to="{name: 'login'}">Login</RouterLink>
     </div>
-    <div @click="useAuthStore().logUserOut()" style="min-width: 100px ;" v-else class="icon flex justify-center items-center w-36 float-end">
+    <div style="min-width: 100px ;" v-else class="icon flex justify-center items-center w-36 float-end">
         <img @click.stop="toggleMenu()" v-if="!useAuthStore().currentUser?.photo"class="profileIcon w-12 rounded-full" src="@/assets/icons/userIcon.png">
         <img @click.stop="toggleMenu()" v-else class="profileIcon w-12 rounded-full" :src="prepareImageSrc((useAuthStore().currentUser?.photo as string))">
     </div> 
-    <Transition name="bounce">
-      <Menu  v-if="isMenuOpen" @remove-menu="toggleMenu()" @logout="logOut()"></Menu>
-    </Transition>
+    
 </div>
-
+<Transition name="bounce">
+  <Menu  v-if="isMenuOpen && useAuthStore().isUserLoggedIn()" @remove-menu="toggleMenu()" @editProfile="editProfile()" @logout="logOut()"></Menu>
+</Transition>
 </template>
 
 <style scoped>
@@ -60,7 +69,7 @@ function logOut(){
 .topnav {
   width: 100%;
   overflow: hidden;
-  min-width: 1400px;
+  min-width: 100px;
 
 }
 .topnav a {
@@ -84,8 +93,15 @@ function logOut(){
 
 @media (max-width: 1000px) {
   .topnav a {
+    width: 125px;
+  }
+}
+
+@media (max-width: 750px) {
+  .topnav .ZZZ {
     display: none;
   }
 }
+
 
 </style>

@@ -2,6 +2,7 @@
 import NavBar from './components/NavBar.vue';
 import Modal from './components/Modal.vue';
 import NotificationDisplay from './components/displays/NotificationDisplay.vue';
+import Menu from './components/Menu.vue';
 </script>
 
 <template>

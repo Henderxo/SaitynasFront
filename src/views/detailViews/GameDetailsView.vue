@@ -12,10 +12,12 @@ import DeleteGame from '@/components/modals/DeleteGame.vue';
 import CreateComment from '@/components/CreateComment.vue';
 import NoDataFoundDisplay from '@/components/displays/NoDataFoundDisplay.vue';
 import type { Developer } from '@/types/Developer';
+import { useRouter } from 'vue-router';
 const AuthStore = useAuthStore()
+const router = useRouter()
 const {data: gameData, isLoading: gameIsLoading, getCollection: getGameCollection, totalCount} = useCollections()
 const {data: gameCommentsData, isLoading: commentsAreLoading, getCollection: getGameCommentsCollection} = useCollections()
-const {data: developerGames, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollectio} = useCollections()
+const {data: developerGames, isLoading: gamesAreLoading, getCollection: getDeveloperGamesCollectio, totalCount: TotalGames} = useCollections()
 const props = defineProps({
     id: {type: String, required: true}
 })
@@ -81,7 +83,7 @@ const smallDeveloperGame = computed(() => {
                 <a class="mt-2">Language: {{ (gameData as Game).language }}</a>
                 <a class="mt-2">PlayerType: {{ (gameData as Game).playerType }}</a>
                 <a class="mt-2">Controller Support: {{ (gameData as Game).controllerSupport }}</a>
-                <a class="mt-2">Developer: {{ ((gameData as Game).developerId as Developer).name }}</a>
+                <a class="mt-2">Developer: <button style="color: orange;" @click="router.replace({name: `developerDetails`, params: {id: ((gameData as Game).developerId as Developer)._id} })">{{ ((gameData as Game).developerId as Developer).name }}</button></a>
                 <div class="mt-2 mt-2 break-word truncate pr-20" style="white-space: pre-wrap;">
                     <a class="">Description: {{ (gameData as Game).description }} </a>
                 </div>
@@ -102,13 +104,13 @@ const smallDeveloperGame = computed(() => {
         </div>
         <NoDataFoundDisplay class="mt-10" v-if="totalCount == 0"></NoDataFoundDisplay>
     </div>
-    <div  class="gameCol p-6 ml-6  float-right w-12 h-12">
-        <div v-if="!gameIsLoading"  class="break-all   mb-4 text flex flex-col">
+    <div  class="gameCol p-6 ml-6   float-right w-12 h-12">
+        <div v-if="!gameIsLoading"  class="break-all pl-20 pr-20 mb-4 text flex flex-col">
             <a  class="text-2xl">{{((gameData as Game).developerId as Developer).name}}</a>
             <a>Other Games</a>
         </div>
         <div class="text flex justify-center">
-            <GamesGridDisplay v-if="!gamesAreLoading" :games="smallDeveloperGame" :class="'justify-items-center commentField  pt-6 gameCol'"></GamesGridDisplay>
+            <GamesGridDisplay v-if="!gamesAreLoading"  :games="smallDeveloperGame" :class="'justify-items-center commentField  pt-8 gameCol'"></GamesGridDisplay>
         </div>
     </div>
     
