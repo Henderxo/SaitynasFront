@@ -76,6 +76,12 @@ This repository contains the frontend for the **Game Forum** project, built usin
 ### Backend Communication
 - Authentication and session management are handled via cookies.
 
+### WebSite Showcase
+
+![image](https://github.com/user-attachments/assets/bfab97db-b903-40e1-a888-33094cd91fa7)
+
+![image](https://github.com/user-attachments/assets/3ce04c7e-1743-40e1-a416-ad823cdc6cec)
+
 ---
 
 ## Deployment
