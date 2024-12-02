@@ -9,7 +9,7 @@ import { useModalStore } from '@/stores/ModalStore';
 import { useAuthStore } from '@/stores/AuthStore';
 import { gameGenres, playerTypes, gamePlatforms, controllerSupport } from '@/enums/enums';
 import { useCollections } from '@/composables/getData';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import type { Game } from '@/types/Game';
 import NoDataFoundDisplay from '../displays/NoDataFoundDisplay.vue';
 const {data, isLoading, getCollection, totalCount} = useCollections()
@@ -28,6 +28,9 @@ function onSubmit(values: any){
     }, 'Game successifuly updated.', 'game')
     useModalStore().ResetModal()
 }
+const collection = computed(()=>{
+    return useAuthStore().isAdmin()?`developers`:`users/${useAuthStore().currentUser?._id}/developers`
+}) 
 </script>
 
 <template>
@@ -40,7 +43,7 @@ function onSubmit(values: any){
             <div v-if="!isLoading" class="flex">
                 <div class="w-full mr-2">
                     <Input class="mt-2" :value="(data as Game).title " :place-holder="'Enter title...'"   :name="'title'" :label="'Title'"></Input>
-                    <Select class="mt-2" :value="((data as Game).developerId as string)" :name="'developer'" :collection-name="`users/${userId}/developers`" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
+                    <Select class="mt-2" :value="((data as Game).developerId as string)" :name="'developer'" :collection-name="collection" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
                     <Select class="mt-2" :value="(data as Game).genre " :name="'genre'" :default-values="Object.values(gameGenres)" :place-holder="'Select genre...'" :label="'Genre'" :showing="'genre'" ></Select>
                 </div>
                 <div class="w-full ml-2">
