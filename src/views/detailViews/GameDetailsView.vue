@@ -94,7 +94,7 @@ const smallDeveloperGame = computed(() => {
             </div>
         </div>
         <div v-if="!gameIsLoading && (AuthStore.isAdmin() || (AuthStore.isDev() && ((gameData as Game).developerId as Developer).userId === AuthStore.currentUser?._id))" class="flex mt-5">
-            <button @click="useModalStore().SetModal({component: EditGame, componentProps: {id: (gameData as Game)._id}})" class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
+            <button @click="useModalStore().SetModal({component: EditGame, componentProps: {id: (gameData as Game)._id}, userId: gameData.developerId.userId})" class="button float-right mr-4 rounded-xl  w-36 h-12 text-xl">Edit</button>
             <button @click="useModalStore().SetModal({component: DeleteGame, componentProps: {id: (gameData as Game)._id}})" class="delete float-right ml-4 rounded-xl  w-36 h-12 text-xl">Delete</button>
         </div>
         <div  v-if="!commentsAreLoading && !gameIsLoading" class="mb-20">

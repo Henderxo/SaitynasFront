@@ -14,11 +14,12 @@ import type { Game } from '@/types/Game';
 import NoDataFoundDisplay from '../displays/NoDataFoundDisplay.vue';
 const {data, isLoading, getCollection, totalCount} = useCollections()
 const props = defineProps({
-    id: {type: String, required: true}
+    id: {type: String, required: true},
+    userId: {type: String, required: true}
 })
 const {updateModalData} = useCollectionsUpdater(`games/${props.id}`)
 onMounted(()=>{
-    getCollection({collectionName: 'games', id: `${props.id}`})
+    getCollection({collectionName: 'games', expand: 'developerId', id: `${props.id}`})
 })
 function onSubmit(values: any){
     updateModalData({title: values.title, developerId: values.developer, genre: values.genre, language: values.language,
@@ -39,7 +40,7 @@ function onSubmit(values: any){
             <div v-if="!isLoading" class="flex">
                 <div class="w-full mr-2">
                     <Input class="mt-2" :value="(data as Game).title " :place-holder="'Enter title...'"   :name="'title'" :label="'Title'"></Input>
-                    <Select class="mt-2" :value="((data as Game).developerId as string)" :name="'developer'" :collection-name="`users/${useAuthStore().currentUser?._id}/developers`" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
+                    <Select class="mt-2" :value="((data as Game).developerId as string)" :name="'developer'" :collection-name="`users/${userId}/developers`" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
                     <Select class="mt-2" :value="(data as Game).genre " :name="'genre'" :default-values="Object.values(gameGenres)" :place-holder="'Select genre...'" :label="'Genre'" :showing="'genre'" ></Select>
                 </div>
                 <div class="w-full ml-2">
