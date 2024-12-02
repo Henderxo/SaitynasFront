@@ -12,7 +12,6 @@ onMounted(()=> {
   getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
 })
 watch(useModalStore().isTriggerUser, ()=>{
-  console.log('rat')
   getCollection({collectionName: 'users', id: useAuthStore().currentUser?._id})
 })
 

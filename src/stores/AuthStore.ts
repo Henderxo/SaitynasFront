@@ -5,6 +5,7 @@ import { isTokenValid, registerNewLogin, removeToken } from "@/services/AuthServ
 import { useRouter } from "vue-router";
 import { useNotificationStore } from "./NotificationStore";
 import { refreshToken } from "@/services/APIService";
+import { useModalStore } from "./ModalStore";
 
 
 export const useAuthStore = defineStore('auth', ()=>{
@@ -22,6 +23,7 @@ export const useAuthStore = defineStore('auth', ()=>{
             return
         }
         currentUser.value = res.data as User;
+        useModalStore().TriggerUserChange()
         router.push({ name: 'home' });
 
     }
