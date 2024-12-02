@@ -8,11 +8,11 @@ import { useCollectionsUpdater } from '@/composables/postData';
 import { useModalStore } from '@/stores/ModalStore';
 import { useAuthStore } from '@/stores/AuthStore';
 import { gameGenres, playerTypes, gamePlatforms, controllerSupport } from '@/enums/enums';
+import { computed } from 'vue';
 
 const { postModalData } = useCollectionsUpdater('games')
 const props = defineProps({
-    devId: {type: String, required: true},
-    userId: {type: String, required: true}
+    devId: {type: String, required: true}
 })
 
 
@@ -23,6 +23,9 @@ function onSubmit(values: any){
     }, 'Game successifuly created.', 'game')
     useModalStore().ResetModal()
 }
+const collection = computed(()=>{
+    return useAuthStore().isAdmin()?`developers`:`users/${useAuthStore().currentUser?._id}/developers`
+}) 
 </script>
 
 <template>
@@ -35,7 +38,7 @@ function onSubmit(values: any){
             <div class="flex">
                 <div class="w-full mr-2">
                     <Input class="mt-2"  :place-holder="'Enter title...'"   :name="'title'" :label="'Title'"></Input>
-                    <Select class="mt-2" :value="devId" :name="'developer'" :collection-name="`users/${userId}/developers`" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
+                    <Select class="mt-2" :value="devId" :name="'developer'" :collection-name="collection" :place-holder="'Select developer...'" :label="'Developers'" :showing="'name'" ></Select>
                     <Select class="mt-2" :name="'genre'" :default-values="Object.values(gameGenres)" :place-holder="'Select genre...'" :label="'Genre'" :showing="'genre'" ></Select>
                 </div>
                 <div class="w-full ml-2">

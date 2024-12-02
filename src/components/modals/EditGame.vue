@@ -14,12 +14,11 @@ import type { Game } from '@/types/Game';
 import NoDataFoundDisplay from '../displays/NoDataFoundDisplay.vue';
 const {data, isLoading, getCollection, totalCount} = useCollections()
 const props = defineProps({
-    id: {type: String, required: true},
-    userId: {type: String, required: true}
+    id: {type: String, required: true}
 })
 const {updateModalData} = useCollectionsUpdater(`games/${props.id}`)
 onMounted(()=>{
-    getCollection({collectionName: 'games', expand: 'developerId', id: `${props.id}`})
+    getCollection({collectionName: 'games', id: `${props.id}`})
 })
 function onSubmit(values: any){
     updateModalData({title: values.title, developerId: values.developer, genre: values.genre, language: values.language,
